@@ -140,6 +140,8 @@ Example test_next_weekday:
 
 Proof. simpl. reflexivity.  Qed.
 
+Print test_next_weekday. (*3.10*)
+
 (** The details are not important for now (we'll come back to
     them in a bit), but essentially this can be read as "The assertion
     we've just made can be proved by observing that both sides of the
@@ -189,6 +191,29 @@ Definition andb (b1:bool) (b2:bool) : bool :=
   | true => b2 
   | false => false
   end.
+
+Definition andb2 (b1:bool) (b2:bool) : bool :=
+  match b2 with
+  | true => b1
+  | false => false
+  end. (* 3.10 *)
+
+(* 3.10 *)
+Lemma andb_eq_andb2: forall (b1 b2: bool),
+  andb b1 b2 = andb2 b1 b2.
+Proof.
+  intros. (*assumption*)
+  destruct b1.
+  - destruct b2.
+    + simpl. reflexivity.
+    + simpl. reflexivity.
+  - destruct b2.
+    + simpl. reflexivity.
+    + simpl. reflexivity.
+Qed.
+
+(* 3.10 *)
+Print andb_eq_andb2.
 
 Definition orb (b1:bool) (b2:bool) : bool := 
   match b1 with 
@@ -286,6 +311,11 @@ Check (negb true).
 Check negb.
 (* ===> negb : bool -> bool *)
 
+(* 3.10 *)
+Check (bool -> bool).
+Check Set.
+Check Type.
+
 (** The type of [negb], written [bool -> bool] and pronounced
     "[bool] arrow [bool]," can be read, "Given an input of type
     [bool], this function produces an output of type [bool]."
@@ -359,17 +389,30 @@ Definition pred (n : nat) : nat :=
     | S n' => n'
   end.
 
+(* 3.10 *)
+Eval compute in (pred (S (S (S O)))).
+
 (** The second branch can be read: "if [n] has the form [S n']
     for some [n'], then return [n']."  *)
 
 End Playground1.
+(* End of user defined nat. *)
+
+(* 3.10 *)
+
+Print nat. (* library *)
+Check S (S O).
+
+Check 3.
 
 Definition minustwo (n : nat) : nat :=
   match n with
     | O => O
     | S O => O
     | S (S n') => n'
-  end.
+  end. (*exausted*)
+(* 3.10 *)
+Print minustwo.
 
 (** Because natural numbers are such a pervasive form of data,
     Coq provides a tiny bit of built-in magic for parsing and printing
@@ -408,8 +451,18 @@ Fixpoint evenb (n:nat) : bool :=
   | S (S n') => evenb n'
   end.
 
+(*3.10*)
+Eval compute in (evenb 101).
+Eval compute in (evenb 100).
+Lemma foo: evenb 101 = false.
+Proof. reflexivity. Qed.
 (** We can define [oddb] by a similar [Fixpoint] declaration, but here
     is a simpler definition that will be a bit easier to work with: *)
+
+(* wrong reculsive 
+Fixpoint f (n: nat) : nat :=
+  f n.
+*)
 
 Definition oddb (n:nat) : bool   :=   negb (evenb n).
 
@@ -433,6 +486,38 @@ Fixpoint plus (n : nat) (m : nat) : nat :=
 (** Adding three to two now gives us five, as we'd expect. *)
 
 Eval compute in (plus (S (S (S O))) (S (S O))).
+
+(* 3.12 *)
+Lemma add_assoc_0: forall (m k: nat), plus 0 (plus m k) = plus (plus 0 m) k.
+Proof.
+  simpl. reflexivity. Qed.
+
+Lemma add_assoc_n_Sn: forall n : nat,
+  (forall m k : nat, plus n (plus m k) = plus (plus n m) k) (* imply *)
+  -> (forall m k : nat, plus (S n) (plus m k) = plus (plus (S n) m) k).
+Proof.
+  intros n.
+  intros Hn.
+  intros m'.
+  intros k'.
+
+  simpl plus at 1.
+  simpl plus at 4.
+  simpl plus at 3.
+
+  specialize (Hn m' k'). (* make Hm for particular m', k') *)
+  rewrite Hn. (* make subgoals to make left side and right side same by using hyphothesis Hn. *)
+  reflexivity.
+Qed. (* step by step proof. *)
+
+Lemma add_assoc: forall (n m k: nat),
+  plus n (plus m k) = plus (plus n m) k.
+Proof.
+  induction n.
+  - apply add_assoc_0.
+  - revert n IHn. apply add_assoc_n_Sn.
+Qed.
+
 
 (** The simplification that Coq performs to reach this conclusion can
     be visualized as follows: *)
