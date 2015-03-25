@@ -1,10 +1,12 @@
 (** * Induction: Proof by Induction *)
- 
+ Definition admit {T: Type} : T.  Admitted.
 
 (** The next line imports all of our definitions from the
     previous chapter. *)
 
 Require Export Basics.
+
+Add LoadPath "C:\Coq\bin".
 
 (** For it to work, you need to use [coqc] to compile [Basics.v]
     into [Basics.vo].  (This is like making a .class file from a .java
@@ -72,6 +74,20 @@ Tactic Notation "SSSSSSCase" constr(name) := Case_aux SSSSSSCase name.
 Tactic Notation "SSSSSSSCase" constr(name) := Case_aux SSSSSSSCase name.
 (** Here's an example of how [Case] is used.  Step through the
    following proof and observe how the context changes. *)
+
+(* 3.17 *)
+Lemma blah: forall a b: bool,
+  andb a b = andb b a.
+Proof.
+  intros a b.
+  destruct a.
+  { destruct b.
+    { reflexivity. }
+    { reflexivity. }}
+  destruct b.
+  + reflexivity.
+  + reflexivity.
+Qed.
 
 Theorem andb_true_elim1 : forall b c : bool,
   andb b c = true -> b = true.
@@ -192,9 +208,12 @@ Abort.
 
 Theorem plus_0_r : forall n:nat, n + 0 = n.
 Proof.
-  intros n. induction n as [| n'].
+  intros n. induction n as [| n' hypname].
   Case "n = 0".     reflexivity.
-  Case "n = S n'".  simpl. rewrite -> IHn'. reflexivity.  Qed.
+  Case "n = S n'".  simpl. rewrite -> hypname. reflexivity.  Qed.
+
+(* 3.19 *)
+Print plus_0_r.
 
 (** Like [destruct], the [induction] tactic takes an [as...]
     clause that specifies the names of the variables to be introduced
@@ -292,9 +311,10 @@ Theorem mult_0_plus' : forall n m : nat,
   (0 + n) * m = n * m.
 Proof.
   intros n m.
-  assert (H: 0 + n = n). 
-    Case "Proof of assertion". reflexivity.
-  rewrite -> H.
+  assert (Pf_0_plus_n_eq_n: 0 + n = n). 
+  (* Case "Proof of assertion". *)
+  { reflexivity. }
+  rewrite -> Pf_0_plus_n_eq_n.
   reflexivity.  Qed.
 
 (** The [assert] tactic introduces two sub-goals.  The first is
@@ -330,9 +350,9 @@ Proof.
   intros n m p q.
   (* We just need to swap (n + m) for (m + n)...
      it seems like plus_comm should do the trick! *)
-  rewrite -> plus_comm.
+  rewrite -> (plus_comm n m) . (* we have to choice one plus 3.19 *)
   (* Doesn't work...Coq rewrote the wrong plus! *)
-Abort.
+  reflexivity. Qed.
 
 (** To get [plus_comm] to apply at the point where we want it, we can
     introduce a local lemma stating that [n + m = m + n] (for
@@ -373,13 +393,13 @@ Proof.
 (** **** Exercise: 2 stars, optional (evenb_n__oddb_Sn)  *)
 
 (** Prove the following simple fact: *)
-
+(*
 Theorem evenb_n__oddb_Sn : forall n : nat,
   evenb n = negb (evenb (S n)).
 Proof.
   (* FILL IN HERE *) Admitted.
 (** [] *)
-
+*)
 (* ###################################################################### *)
 (** * More Exercises *)
 
@@ -391,7 +411,7 @@ Proof.
     down your prediction.  Then fill in the proof.  (There is no need
     to turn in your piece of paper; this is just to encourage you to
     reflect before hacking!) *)
-
+(*
 Theorem ble_nat_refl : forall n:nat,
   true = ble_nat n n.
 Proof.
@@ -453,7 +473,7 @@ Theorem beq_nat_refl : forall n : nat,
 Proof.
   (* FILL IN HERE *) Admitted.
 (** [] *)
-
+*)
 (** **** Exercise: 2 stars, optional (plus_swap')  *)
 (** The [replace] tactic allows you to specify a particular subterm to
    rewrite and what you want it rewritten to.  More precisely,

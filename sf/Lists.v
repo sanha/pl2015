@@ -1,6 +1,6 @@
 (** * Lists: Working with Structured Data *)
-
-Require Export Induction.
+Definition admit {T: Type} : T.  Admitted.
+ Require Export Induction.
 
 Module NatList. 
 
@@ -12,7 +12,7 @@ Module NatList.
     with [S]), or more than one, as in this definition: *)
 
 Inductive natprod : Type :=
-  pair : nat -> nat -> natprod.
+  pair : nat -> nat -> natprod. (* pair have inserted two nat returns natprod. *)
 
 (** This declaration can be read: "There is just one way to
     construct a pair of numbers: by applying the constructor [pair] to
@@ -29,7 +29,7 @@ Check (pair 3 5).
     illustrate how to do pattern matching on two-argument
     constructors.) *)
 
-Definition fst (p : natprod) : nat := 
+Definition fst := fun (p : natprod) => 
   match p with
   | pair x y => x
   end.
@@ -37,6 +37,8 @@ Definition snd (p : natprod) : nat :=
   match p with
   | pair x y => y
   end.
+
+
 
 Eval compute in (fst (pair 3 5)).
 (* ===> 3 *)
@@ -86,9 +88,9 @@ Proof.
 (** Note that [reflexivity] is not enough if we state the lemma in a
     more natural way: *)
 
-Theorem surjective_pairing_stuck : forall (p : natprod),
+Theorem surjective_pairing_stuck : forall (p : natprod), (* 3.19 얘는 p에 대한 정ㅗ가 충ㅜㄴ하지 ㅇㅏㅎ기 때문에 simpl 불. *)
   p = (fst p, snd p).
-Proof.
+Proof. (* insto, destruct, simpl. reflex *)
   simpl. (* Doesn't reduce anything! *)
 Abort.
 
@@ -255,9 +257,9 @@ Proof. reflexivity.  Qed.
 (** Complete the definitions of [nonzeros], [oddmembers] and
     [countoddmembers] below. Have a look at the tests to understand
     what these functions should do. *)
-
+(*
 Fixpoint nonzeros (l:natlist) : natlist :=
-  (* FILL IN HERE *) admit.
+   FILL IN HERE 
 
 Example test_nonzeros:            nonzeros [0;1;0;2;3;0;0] = [1;2;3].
  (* FILL IN HERE *) Admitted.
@@ -278,7 +280,7 @@ Example test_countoddmembers2:    countoddmembers [0;2;4] = 0.
 Example test_countoddmembers3:    countoddmembers nil = 0.
  (* FILL IN HERE *) Admitted.
 (** [] *)
-
+*)
 (** **** Exercise: 3 stars, advanced (alternate)  *)
 (** Complete the definition of [alternate], which "zips up" two lists
     into one, alternating between elements taken from the first list
@@ -291,7 +293,7 @@ Example test_countoddmembers3:    countoddmembers nil = 0.
     for a slightly more verbose solution that considers elements of
     both lists at the same time.  (One possible solution requires
     defining a new kind of pairs, but this is not the only way.)  *)
-
+(*
 
 Fixpoint alternate (l1 l2 : natlist) : natlist :=
   (* FILL IN HERE *) admit.
@@ -314,7 +316,7 @@ Example test_alternate4:        alternate [] [20;30] = [20;30].
     multiple times instead of just once.  One reasonable
     implementation of bags is to represent a bag of numbers as a
     list. *)
-
+*)
 Definition bag := natlist.  
 
 (** **** Exercise: 3 stars (bag_functions)  *)
@@ -434,7 +436,7 @@ Proof. reflexivity. Qed.
 (** Also, as with numbers, it is sometimes helpful to perform case
     analysis on the possible shapes (empty or non-empty) of an unknown
     list. *)
-
+(*
 Theorem tl_length_pred : forall l:natlist,
   pred (length l) = length (tl l).
 Proof.
@@ -443,7 +445,7 @@ Proof.
     reflexivity.
   Case "l = cons n l'". 
     reflexivity.  Qed.
-
+*)
 (** Here, the [nil] case works because we've chosen to define
     [tl nil = nil]. Notice that the [as] annotation on the [destruct]
     tactic here introduces two names, [n] and [l'], corresponding to
@@ -492,7 +494,7 @@ Proof.
     Since larger lists can only be built up from smaller ones,
     eventually reaching [nil], these two things together establish the
     truth of [P] for all lists [l].  Here's a concrete example: *)
-
+(*
 Theorem app_assoc : forall l1 l2 l3 : natlist, 
   (l1 ++ l2) ++ l3 = l1 ++ (l2 ++ l3).   
 Proof.
@@ -501,7 +503,7 @@ Proof.
     reflexivity.
   Case "l1 = cons n l1'".
     simpl. rewrite -> IHl1'. reflexivity.  Qed.
-
+*)
 (** Again, this Coq proof is not especially illuminating as a
     static written document -- it is easy to see what's going on if
     you are reading the proof in an interactive Coq session and you
@@ -537,15 +539,16 @@ Proof.
 (**
   Here is a similar example to be worked together in class: *)
 
+Check natlist_ind.
+Print natlist_ind. (* 3.24 *)
+
 Theorem app_length : forall l1 l2 : natlist, 
   length (l1 ++ l2) = (length l1) + (length l2).
 Proof.
   (* WORKED IN CLASS *)
   intros l1 l2. induction l1 as [| n l1'].
-  Case "l1 = nil".
-    reflexivity.
-  Case "l1 = cons".
-    simpl. rewrite -> IHl1'. reflexivity.  Qed.
+  - reflexivity.
+  - simpl. rewrite -> IHl1'. reflexivity.  Qed.
 
 
 (** *** Reversing a list *)

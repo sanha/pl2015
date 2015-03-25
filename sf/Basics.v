@@ -827,6 +827,11 @@ Theorem mult_0_plus : forall n m : nat,
   (0 + n) * m = n * m.
 Proof.
   intros n m.
+
+(* 3.17 *)
+SearchAbout (_ + _ = _).
+Check plus_O_n.
+Check plus_O_n n.
   rewrite -> plus_O_n.
   reflexivity.  Qed.
 
@@ -855,6 +860,14 @@ Proof.
   simpl.  (* does nothing! *)
 Abort.
 
+(* 3.17 *)
+Theorem plus_1_neq_0_changed : forall n : nat,
+  beq_nat (1 + n) 0 = false.
+Proof.
+  intros n. 
+  simpl. reflexivity.
+Qed.
+
 (** The reason for this is that the definitions of both
     [beq_nat] and [+] begin by performing a [match] on their first
     argument.  But here, the first argument to [+] is the unknown
@@ -876,8 +889,8 @@ Theorem plus_1_neq_0 : forall n : nat,
   beq_nat (n + 1) 0 = false.
 Proof.
   intros n. destruct n as [| n'].
-    reflexivity.
-    reflexivity.  Qed.
+    - simpl. reflexivity.
+    - simpl plus. simpl. reflexivity.  Qed.
 
 (** The [destruct] generates _two_ subgoals, which we must then
     prove, separately, in order to get Coq to accept the theorem as
@@ -920,7 +933,9 @@ Proof.
 Theorem zero_nbeq_plus_1 : forall n : nat,
   beq_nat 0 (n + 1) = false.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros n. destruct n.
+  - reflexivity.
+  - reflexivity. Qed.
 
 (** [] *)
 
