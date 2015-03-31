@@ -5,7 +5,7 @@
     _polymorphism_ (abstracting functions over the types of the data
     they manipulate) and _higher-order functions_ (treating functions
     as data).
-*)
+*) Definition admit {T: Type} : T.  Admitted.
 
 Require Export Lists.   
 
@@ -41,6 +41,25 @@ Inductive list (X:Type) : Type :=
   | nil : list X
   | cons : X -> list X -> list X.
 
+(* 3.26 *)
+Print nil.
+Check nil.
+Check (forall X : Type, list X). (* Type has element nil *)
+Check nil nat.
+
+Check cons.
+Check (forall X : Type, X -> list X -> list X).
+
+Check (cons nat 0 (cons nat 1 (nil nat))).
+
+Check (sum bool nat).
+Check cons (sum bool nat).
+Check list (sum bool nat).
+
+Lemma foo: (nat -> nat) = (forall x: nat, nat).
+Proof.
+  reflexivity.
+Qed.
 
 (** This is exactly like the definition of [natlist] from the
     previous chapter, except that the [nat] argument to the [cons]
@@ -295,6 +314,9 @@ Arguments length {X} l.
 Arguments app {X} l1 l2.
 Arguments rev {X} l. 
 Arguments snoc {X} l v.
+
+(* 3.31 *)
+Check cons 2 nil.
 
 (* note: no _ arguments required... *)
 Definition list123'' := cons 1 (cons 2 (cons 3 nil)).
@@ -1021,7 +1043,7 @@ Proof.
 (** Now we can prove a first property of [override]: If we
     override a function at some argument [k] and then look up [k], we
     get back the overridden value. *)
-
+(*
 Theorem override_eq : forall {X:Type} x k (f:nat->X),
   (override f k x) k = x.
 Proof.
@@ -1041,7 +1063,7 @@ Theorem override_neq : forall (X:Type) x1 x2 k1 k2 (f : nat->X),
 Proof.
   (* FILL IN HERE *) Admitted.
 (** [] *)
-
+*)
 (** As the inverse of [unfold], Coq also provides a tactic
     [fold], which can be used to "unexpand" a definition.  It is used
     much less often. *)

@@ -494,7 +494,7 @@ Proof.
     Since larger lists can only be built up from smaller ones,
     eventually reaching [nil], these two things together establish the
     truth of [P] for all lists [l].  Here's a concrete example: *)
-(*
+
 Theorem app_assoc : forall l1 l2 l3 : natlist, 
   (l1 ++ l2) ++ l3 = l1 ++ (l2 ++ l3).   
 Proof.
@@ -503,7 +503,7 @@ Proof.
     reflexivity.
   Case "l1 = cons n l1'".
     simpl. rewrite -> IHl1'. reflexivity.  Qed.
-*)
+
 (** Again, this Coq proof is not especially illuminating as a
     static written document -- it is easy to see what's going on if
     you are reading the proof in an interactive Coq session and you
@@ -765,12 +765,12 @@ Proof.
   (* FILL IN HERE *) Admitted.
 
 (** An exercise about your implementation of [nonzeros]: *)
-
+(*
 Lemma nonzeros_app : forall l1 l2 : natlist,
   nonzeros (l1 ++ l2) = (nonzeros l1) ++ (nonzeros l2).
 Proof.
   (* FILL IN HERE *) Admitted.
-(** [] *)
+ [] *)
 
 (** **** Exercise: 2 stars (beq_natlist)  *)
 (** Fill in the definition of [beq_natlist], which compares
@@ -808,7 +808,7 @@ Proof.
 (** **** Exercise: 3 stars, advanced (bag_proofs)  *)
 (** Here are a couple of little theorems to prove about your
     definitions about bags earlier in the file. *)
-
+(*
 Theorem count_member_nonzero : forall (s : bag),
   ble_nat 1 (count 1 (1 :: s)) = true.
 Proof.
@@ -849,7 +849,7 @@ There is a hard way and an easy way to solve this exercise.
 (* FILL IN HERE *)
 (** [] *)
 
-
+*)
 (* ###################################################### *)
 (** * Options *)
 
