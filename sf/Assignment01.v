@@ -85,9 +85,9 @@ Fixpoint blt_nat (n m : nat) : bool :=
   end.
 
 Example test_blt_nat1:             (blt_nat 2 2) = false.
-Proof. simpl. reflexivity.
+Proof. simpl. reflexivity. Qed.
 Example test_blt_nat2:             (blt_nat 2 4) = true.
-Proof. simpl. reflexivity.
+Proof. simpl. reflexivity. Qed.
 Example test_blt_nat3:             (blt_nat 4 2) = false.
-Proof. simpl. reflexivity.
+Proof. simpl. reflexivity. Qed.
 (** [] *)
