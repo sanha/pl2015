@@ -73,6 +73,39 @@ Proof. reflexivity. Qed.
 Lemma silly : 0 * 3 = 0.
 Proof. reflexivity. Qed.
 
+(* 4.2 *)
+Definition plus_2_is_5 (x: nat) : Prop := (* predicate *)
+  x + 2 = 5.
+
+Print plus_2_is_5.
+
+Definition plus_2_is_bigger_than_5 (x: nat) : Type :=
+  x + 2 > 5.
+
+Check plus_2_is_bigger_than_5.
+Check plus_2_is_bigger_than_5 : nat -> Type.
+
+Inductive mynat :=
+  | myO : mynat
+  | myS : mynat -> mynat
+.
+
+Check mynat.
+
+Check (3 + 2 = 6).
+
+Definition foo42 :=
+  forall n : nat, plus_2_is_5 n.
+
+Check foo42.
+
+Definition bar42 :=
+  exists n : nat, plus_2_is_5 n.
+
+Check bar42.
+
+
+
 (** We can see which proof term Coq constructs for a given Lemma by
 using the [Print] directive: *)
 
