@@ -134,13 +134,17 @@ Qed.
 
 
 
+
 (** **** Problem #2 (10 pts) : 1 star, optional (hd_opt_poly) *)
 (** Complete the definition of a polymorphic version of the
     [hd_opt] function from the last chapter. Be sure that it
     passes the unit tests below. *)
 
 Definition hd_opt {X : Type} (l : list X)  : option X :=
-  (* FILL IN HERE *) admit.
+  match l with
+  | nil    => None
+  | h :: t => Some h
+  end.
 
 (** Once again, to force the implicit arguments to be explicit,
     we can use [@] before the name of the function. *)
@@ -148,15 +152,14 @@ Definition hd_opt {X : Type} (l : list X)  : option X :=
 Check @hd_opt.
 
 Example test_hd_opt1 :  hd_opt [1;2] = Some 1.
- (* FILL IN HERE *) Admitted.
+Proof.
+  simpl. reflexivity.
+Qed.
+
 Example test_hd_opt2 :   hd_opt  [[1];[2]]  = Some [1].
- (* FILL IN HERE *) Admitted.
-(** [] *)
-
-
-
-
-
+Proof.
+  simpl. reflexivity.
+Qed.
 
 
 
@@ -185,8 +188,7 @@ Definition prod_curry {X Y Z : Type}
     the theorems below to show that the two are inverses. *)
 
 Definition prod_uncurry {X Y Z : Type}
-  (f : X -> Y -> Z) (p : X * Y) : Z :=
-  (* FILL IN HERE *) admit.
+  (f : X -> Y -> Z) (p : X * Y) : Z := f (fst p) (snd p).
 
 (** (Thought exercise: before running these commands, can you
     calculate the types of [prod_curry] and [prod_uncurry]?) *)
@@ -197,25 +199,16 @@ Check @prod_uncurry.
 Theorem uncurry_curry : forall (X Y Z : Type) (f : X -> Y -> Z) x y,
   prod_curry (prod_uncurry f) x y = f x y.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros X Y Z f x y. reflexivity. 
+Qed.
 
 Theorem curry_uncurry : forall (X Y Z : Type)
                                (f : (X * Y) -> Z) (p : X * Y),
   prod_uncurry (prod_curry f) p = f p.
 Proof.
-  (* FILL IN HERE *) Admitted.
-(** [] *)
-
-
-
-
-
-
-
-
-
-
-
+  intros X Y Z f p. destruct p.
+  reflexivity.
+Qed.
 
 
 
@@ -230,8 +223,17 @@ Proof.
     and returns a list of just those that are even and greater than
     7. *)
 
+Fixpoint even? (n : nat) : bool :=
+  match n with
+  | O   => true
+  | S (S n') => even? n'
+
+Definition even_gt7 (n : nat) : bool :=
+  if n<8 then false
+         else if 
+
 Definition filter_even_gt7 (l : list nat) : list nat :=
-  (* FILL IN HERE *) admit.
+  filter >=7 l.
 
 Example test_filter_even_gt7_1 :
   filter_even_gt7 [1;2;6;9;10;3;12;8] = [10;12;8].
@@ -242,9 +244,18 @@ Example test_filter_even_gt7_2 :
  (* FILL IN HERE *) Admitted.
 (** [] *)
 
-
-
-
+(*
+Fixpoint filter {X:Type} (test: X->bool) (l:list X)
+                : (list X) :=
+  match l with
+  | []     => []
+  | h :: t => 
+    match test h with
+    | true => h :: (filter test t)
+    | false => filter test t
+    end
+  end.
+*)
 
 
 
