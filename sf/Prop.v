@@ -13,6 +13,10 @@ Require Export Logic.
 Definition even (n:nat) : Prop := 
   evenb n = true.
 
+
+
+
+
 (** That is, we can define "[n] is even" to mean "the function [evenb]
     returns [true] when applied to [n]."  
 

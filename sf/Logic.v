@@ -3,6 +3,22 @@
 Require Export MoreCoq. 
 
 
+(* 4.7 *)
+Check (0*3 = 0 /\ 2+2=4).
+
+Definition silly_implication : (1+1) = 2 -> 0*3=0
+  := fun _ => eq_refl.
+
+Check conj.
+
+Theorem and_example :
+  (0 = 0) /\ (4 = mult 2 2).
+Proof.
+Check conj.
+  apply conj.
+  - reflexivity.
+  - reflexivity.
+Qed.
 
 (** Coq's built-in logic is very small: the only primitives are
     [Inductive] definitions, universal quantification ([forall]), and
