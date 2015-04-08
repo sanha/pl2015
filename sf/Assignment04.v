@@ -662,27 +662,25 @@ Qed.
 
 
 (** **** Problem #19 (10 pts): 2 stars (beq_nat_true)  *)
+Lemma eq_add_eq : forall n m, n = m -> S n = S m.
+Proof.
+  intros n m H. induction n as [| n'].
+  - rewrite <- H. reflexivity.
+  - rewrite -> H. reflexivity.
+Qed.
+
 Theorem beq_nat_true : forall n m,
     beq_nat n m = true -> n = m.
 Proof.
-  intros n m. induction n as [| n'].
-  - intros H. induction m as [| m'].
-    + simpl. reflexivity.
-    + inversion H.
-  - intros H. inversion H.
-apply (IHn' (S n') m).
- apply IHn'.
- intros H. induction m as [| m'].
-    + inversion H.
-    + inversion H. 
+  induction n as [| n'].
+  - unfold beq_nat. destruct m.
+    + reflexivity.
+    + intros contra. inversion contra.
+  - induction m as [| m'].
+    + unfold beq_nat. intros contra. inversion contra.
+    + intros H. inversion H. apply IHn' in H1. apply eq_add_eq. rewrite -> H1. reflexivity.
 Qed.
 (** [] *)
-
-
-
-
-
-
 
 
 
@@ -700,7 +698,14 @@ Theorem index_after_last: forall (n : nat) (X : Type) (l : list X),
      length l = n ->
      index n l = None.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros n X. induction n as [| n'].
+  - intros l H. unfold index. destruct l.
+    + reflexivity.
+    + simpl. inversion H.
+  - intros l H. destruct l.
+    + simpl. reflexivity.
+    + simpl. inversion H. rewrite -> H1. apply IHn'. rewrite -> H1. reflexivity.
+Qed.
 (** [] *)
 
 
@@ -725,14 +730,21 @@ Theorem double_induction: forall (P : nat -> nat -> Prop),
   (forall m n, P m n -> P (S m) (S n)) ->
   forall m n, P m n.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros P H1 H2 H3 H4. induction m as [| m'].
+  - induction n as [| n'].
+    + apply H1.
+    + apply H3. apply IHn'.
+  - induction n as [| n'].
+    + apply H2. apply IHm'.
+    + apply H4. apply IHm'.
+Qed.
 (** [] *)
 
 
 
 
 
-
+Print override.
 
 
 
@@ -741,7 +753,8 @@ Proof.
 Theorem override_shadow : forall (X:Type) x1 x2 k1 k2 (f : nat->X),
   (override (override f k1 x2) k1 x1) k2 = (override f k1 x1) k2.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros X x1 x2. 
+Qed.
 (** [] *)
 
 
