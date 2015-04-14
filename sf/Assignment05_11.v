@@ -11,7 +11,8 @@ we would have both [~ (P \/ ~P)] and [~ ~ (P \/ ~P)], a contradiction. *)
 
 Theorem excluded_middle_irrefutable:  forall (P:Prop), ~ ~ (P \/ ~ P).  
 Proof.
-  (* FILL IN HERE *) admit.
+  unfold not. intros P H. apply H. apply or_intror.
+  intros H0. apply H. apply or_introl. apply H0.
 Qed.
 
 
