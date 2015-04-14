@@ -753,7 +753,9 @@ Print override.
 Theorem override_shadow : forall (X:Type) x1 x2 k1 k2 (f : nat->X),
   (override (override f k1 x2) k1 x1) k2 = (override f k1 x1) k2.
 Proof.
-  intros X x1 x2. 
+  intros X x1 x2. unfold override. intros k1 k2. destruct (beq_nat k1 k2).
+  - reflexivity. 
+  - reflexivity.  
 Qed.
 (** [] *)
 
@@ -775,11 +777,19 @@ Theorem bool_fn_applied_thrice :
   forall (f : bool -> bool) (b : bool), 
   f (f (f b)) = f b.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros f b. destruct b.
+  - destruct (f true) eqn:H.
+    + rewrite -> H. rewrite -> H. reflexivity.
+    + destruct (f false) eqn: H1.
+      * rewrite -> H. reflexivity.
+      * rewrite -> H1. reflexivity.
+  - destruct (f false) eqn: H.
+    + destruct (f true) eqn: H1.
+      * rewrite -> H1. reflexivity.
+      * rewrite -> H. reflexivity.
+    + rewrite -> H. rewrite -> H. reflexivity.
+Qed.
 (** [] *)
-
-
-
 
 
 
@@ -793,7 +803,11 @@ Theorem override_same : forall (X:Type) x1 k1 k2 (f : nat->X),
   f k1 = x1 -> 
   (override f k1 x1) k2 = f k2.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros X x1. unfold override. intros k1 k2 f. 
+  destruct (beq_nat k1 k2) eqn:H. apply beq_nat_true in H.
+  - rewrite -> H. intros H1. rewrite -> H1. reflexivity.
+  - reflexivity.
+Qed.
 (** [] *)
 
 
@@ -813,7 +827,12 @@ Theorem filter_exercise : forall (X : Type) (test : X -> bool)
      filter test l = x :: lf ->
      test x = true.
 Proof.
-  (* FILL IN HERE *) Admitted.
+ induction l as [| l'].
+  - simpl. intros lf contra. inversion contra.
+  - simpl. destruct (test l') eqn: H.
+    + intros lf H1. inversion H1. rewrite -> H2 in H. rewrite -> H. reflexivity.
+    + apply IHl.
+Qed.
 (** [] *)
 
 
