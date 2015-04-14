@@ -36,6 +36,14 @@ Inductive ev : nat -> Prop :=
   | ev_SS : forall n:nat, ev n -> ev (S (S n)).
 
 
+(* 4.9 *)
+Lemma ev_is_equal_to_even : forall n,
+  ev n <-> even n.
+Proof.
+Admitted.
+(* this two set are different, but both non-empty. *)
+
+
 (** The first line declares that [ev] is a proposition -- or,
     more formally, a family of propositions "indexed by" natural
     numbers.  (That is, for each number [n], the claim that "[n] is
@@ -152,7 +160,7 @@ Proof.
     follows: *)
 
 Inductive beautiful : nat -> Prop :=
-  b_0   : beautiful 0
+| b_0   : beautiful 0
 | b_3   : beautiful 3
 | b_5   : beautiful 5
 | b_sum : forall n m, beautiful n -> beautiful m -> beautiful (n+m).
@@ -205,6 +213,17 @@ Theorem b_timesm: forall n m, beautiful n -> beautiful (m*n).
 Proof.
    (* FILL IN HERE *) Admitted.
 (** [] *)
+
+(* 4.9 *)
+
+Definition compute_beauty : nat -> bool := admit.
+
+Lemma beautyn_correct : forall n
+  (beauty_n: compute_beauty n = true), beautiful n.
+Proof.
+  admit.
+Qed.
+
 
 
 (* ####################################################### *)
@@ -293,7 +312,7 @@ Theorem gorgeous__beautiful : forall n,
   gorgeous n -> beautiful n.
 Proof.
    intros n H.
-   induction H as [|n'|n'].
+   induction H as [|n'|n']. (* we have three cases *)
    Case "g_0".
        apply b_0.
    Case "g_plus3". 
