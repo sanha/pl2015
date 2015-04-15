@@ -11,21 +11,6 @@ Proof.
   - simpl. apply IHn'.
 Qed.
 
-Lemma comm_add_0: forall n : nat, n = n+0.
-Proof.
-  induction n as [| n']. 
-  - simpl. reflexivity. 
-  - rewrite -> IHn' at 1. simpl. reflexivity. 
-Qed.
-
-Lemma comm_add: forall n m: nat, n+m = m+n.
-Proof.
-  induction n as [| n'].
-  - simpl. apply comm_add_0.
-  - simpl. induction m as [| m'].
-    + simpl. rewrite <- comm_add_0. reflexivity.
-    + simpl. rewrite <- IHm'. rewrite -> IHn' with (S m'). simpl. rewrite <- IHn' with m'. reflexivity.
-Qed.
 
 Lemma m_mult_S: forall m n: nat, (S m) * n = m * n + n.
 Proof.
@@ -33,7 +18,7 @@ Proof.
   - simpl. induction n as [| n'].
     + simpl. reflexivity.
     + simpl. rewrite -> IHn'. reflexivity.
-  - intros n. rewrite -> comm_add with (S m' * n) n. reflexivity.
+  - intros n. rewrite -> plus_comm with (S m' * n) n. reflexivity.
 Qed.
 
 (** 3 stars (b_timesm)  *)

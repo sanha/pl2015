@@ -4,7 +4,11 @@ Require Export Assignment05_25.
 
 
 
-
+Lemma pred_n: forall n : nat, S n = S (S (pred n)).
+Proof.
+  intros. induction n as [| n']. 
+  - simpl.
+Qed.
 
 
 
@@ -21,8 +25,15 @@ Require Export Assignment05_25.
 Lemma even__ev_strong: forall n : nat, 
   (even (pred n) -> ev (pred n)) /\ (even n -> ev n).
 Proof.
-  (* FILL IN HERE *) admit.
+  intros. induction n as [| n'].
+  - split.
+    + intros H. simpl. apply ev_0.
+    + intros H. apply ev_0.
+  - inversion IHn'. split.
+    + intros H1. simpl. simpl in H1. apply H0. apply H1.
+    + intros H1. 
 Qed.
 (** [] *)
+
 
 
