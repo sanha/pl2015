@@ -21,19 +21,49 @@ Require Export Assignment05_27.
 *)
 
 Inductive pal {X: Type} : list X -> Prop :=
-(* FILL IN HERE *)
+  | pal_0 :  pal nil
+  | pal_1:  forall x: X, pal (x :: nil)
+  | pal_add: forall (x: X) (l: list X), pal l -> pal (x:: (snoc l x))
 .
+
+Lemma app_snoc : forall {X: Type} (l : list X) (x1 x2: X), x1 :: snoc l x2 = snoc (x1 :: l) x2.
+Proof.
+  intros. induction l as [| l'].
+  - simpl. reflexivity.
+  - simpl. reflexivity.
+Qed.
+
+Lemma app_list_snoc : forall {X: Type} (l1 l2: list X) (x: X), l1 ++ snoc l2 x = snoc (l1++l2) x.
+Proof.
+  intros. induction l1 as [| l1'].
+  - simpl. reflexivity.
+  - simpl. rewrite -> IHl1. reflexivity.
+Qed.
 
 Theorem pal_app_rev: forall (X: Type) (l: list X),
   pal (l ++ rev l).
 Proof.
-  (* FILL IN HERE *) admit.
+  intros. induction l as [| l'].
+  - simpl. apply pal_0.
+  - simpl. rewrite -> app_list_snoc. apply pal_add. apply IHl.
 Qed.
+
+
+Lemma rev_snoc: forall {X: Type} (l: list X) (x: X), rev (snoc l x) = x :: rev l.
+Proof.
+  intros. induction l as [| l'].
+  - simpl. reflexivity.
+  - simpl. rewrite -> IHl. apply app_snoc.
+Qed.
+
 
 Theorem pal_rev: forall (X: Type) (l: list X),
   pal l -> l = rev l.
 Proof.
-  (* FILL IN HERE *) admit.
+  intros X l H. induction H.
+  - simpl. reflexivity.
+  - simpl. reflexivity.
+  - simpl. rewrite -> rev_snoc. rewrite <- IHpal. apply app_snoc. 
 Qed.
 
 (** [] *)
