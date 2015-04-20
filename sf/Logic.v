@@ -145,13 +145,13 @@ takes evidence for [P] as input and produces evidence for [Q] as its
 output.
 *)     
 
-Lemma silly_implication : (1 + 1) = 2  ->  0 * 3 = 0.
+Lemma silly_implication1 : (1 + 1) = 2  ->  0 * 3 = 0.
 Proof. intros H. reflexivity. Qed.
 
 (** We can see that the proof term for the above lemma is indeed a
 function: *)
 
-Print silly_implication.
+Print silly_implication1.
 (* ===> silly_implication = fun _ : 1 + 1 = 2 => eq_refl
      : 1 + 1 = 2 -> 0 * 3 = 0 *)
 
@@ -229,7 +229,7 @@ Check conj.
     solves the current goal and leaves the two parts of the
     conjunction as subgoals to be proved separately. *)
 
-Theorem and_example : 
+Theorem and_example1 : 
   (0 = 0) /\ (4 = mult 2 2).
 Proof.
   apply conj.
@@ -239,7 +239,7 @@ Proof.
 (** Just for convenience, we can use the tactic [split] as a shorthand for
     [apply conj]. *)
 
-Theorem and_example' : 
+Theorem and_example1' : 
   (0 = 0) /\ (4 = mult 2 2).
 Proof.
   split.

@@ -6,12 +6,16 @@ Require Export Assignment06_01.
 (** (The other direction of this theorem requires the classical "law
     of the excluded middle".) *)
 
+
 Theorem not_exists_dist :
   excluded_middle ->
   forall (X:Type) (P : X -> Prop),
     ~ (exists x, ~ P x) -> (forall x, P x).
 Proof.
-  (* FILL IN HERE *) admit.
+  unfold excluded_middle. intros. assert (P x \/ ~ P x).
+  - apply H.
+  - inversion H1.
+    + apply H2.
+    + destruct H0. exists x. apply H2.
 Qed.
 (** [] *)
-
