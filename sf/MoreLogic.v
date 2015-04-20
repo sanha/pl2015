@@ -1,6 +1,25 @@
 (** * MoreLogic: More on Logic in Coq *)
 
 Require Export "Prop".
+(*
+Inductive eq (A : Type) (x: A) : A -> Prop :=
+  eq_refl : eq A x x
+.
+
+Check eq_refl.
+*)
+Lemma foo : forall n, 2 + n = n + 2. (* eq nat (2+n) (n+2) *)
+Proof.
+  intros. induction n.
+  - simpl. apply eq_refl.
+  - simpl. rewrite <- IHn. simpl. apply eq_refl.
+Qed.
+(*
+Goal foo = foo.
+unfold foo at 1.
+unfold eq_ind.
+unfold eq_rect.
+*)
 
 (* ############################################################ *)
 (** * Existential Quantification *)
