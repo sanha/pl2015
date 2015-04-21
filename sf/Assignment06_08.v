@@ -34,10 +34,8 @@ Qed.
    at least one repeated element (of type [X]).  *)
 
 Inductive repeats {X:Type} : list X -> Prop :=
-  | rep_l : forall (l: list X) (x: X), appears_in x l -> repeats (x::l)
-  | rep_r : forall (l: list X) (x: X), appears_in x l -> repeats (l++x::[])
-  | rep_ex_l: forall (l: list X) (x: X), repeats l -> repeats (x::l)
-  | rep_ex_r: forall (l: list X) (x: X), repeats l -> repeats (l++x::[])
+  | rep_ap : forall (l: list X) (x: X), appears_in x l -> repeats (x::l)
+  | rep_al : forall (l: list X) (x: X), repeats l -> repeats (x::l)
 .
 
 (** Now here's a way to formalize the pigeonhole principle. List [l2]
@@ -56,15 +54,19 @@ Theorem pigeonhole_principle: forall (X:Type) (l1  l2:list X),
    (forall x, appears_in x l1 -> appears_in x l2) -> 
    length l2 < length l1 -> 
    repeats l1.  
-Proof. 
-   intros X l1. induction l1 as [|x l1'].
-  - simpl. intros. inversion H1.
-  - 
-
-  intros. unfold excluded_middle in H. assert (appears_in x l1' \/ ~ (appears_in x l1')). apply H. inversion H2.
-    + apply rep_l. apply H3.
-    + apply rep_ex_l. assert (exists lh: X, exists lt: list X, l2 = lh::lt).  
-
-
+Proof.
+  intros X l1. induction l1 as [|x l1']. simpl. intros. inversion H1.
+  intros. unfold excluded_middle in H. assert (appears_in x l1' \/ ~ (appears_in x l1')).
+  apply H. inversion H2. apply rep_ap. apply H3.
+  apply rep_al. destruct (appears_in_app_split X x l2 (H0 x (ai_here x l1'))) as [w1 [w2]]. 
+  apply IHl1' with (l2:= w1++w2).
+  - unfold excluded_middle. apply H.
+  - intros. assert (H5 := H4). apply ai_later with (b:= x) in H4. apply H0 in H4. rewrite -> proof in H4. apply appears_in_app in H4. inversion H4.
+    + apply app_appears_in. left. apply H6.
+    + apply app_appears_in. right. inversion H6. 
+      rewrite <- H8 in H3. apply H3 in H5. inversion H5. apply H8.
+  - rewrite -> proof in H1. assert (forall (lst1 lst2: list X), length (lst1 ++ x :: lst2) = length (x :: lst1 ++ lst2)).
+    intros. induction lst1 as [| lst1']. simpl. reflexivity. simpl. rewrite -> IHlst1. simpl. reflexivity.
+    rewrite -> H4 with w1 w2 in H1. simpl in H1. unfold lt in H1. apply le_S_n in H1. unfold lt. apply H1.
 Qed.
 
