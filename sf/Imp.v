@@ -1073,7 +1073,7 @@ Inductive bexp : Type :=
   | BLe : aexp -> aexp -> bexp
   | BNot : bexp -> bexp
   | BAnd : bexp -> bexp -> bexp.
-
+                          
 Tactic Notation "bexp_cases" tactic(first) ident(c) :=
   first;
   [ Case_aux c "BTrue" | Case_aux c "BFalse" | Case_aux c "BEq"
@@ -1188,7 +1188,8 @@ Definition fact_in_coq : com :=
   WHILE BNot (BEq (AId Z) (ANum 0)) DO
     Y ::= AMult (AId Y) (AId Z);;
     Z ::= AMinus (AId Z) (ANum 1)
-  END.
+  END. (* an program!! 4.23. this language not read X from out.
+suppose the first X has some meaningful value. X contain input, Y is output. *)
 
 (* ####################################################### *)
 (** ** Examples *)
@@ -1205,7 +1206,7 @@ Definition subtract_slowly_body : com :=
   Z ::= AMinus (AId Z) (ANum 1) ;;
   X ::= AMinus (AId X) (ANum 1).
 
-
+(* This program may not terminated. it may don't have output memory. *)
 (** *** Loops *)
 
 Definition subtract_slowly : com :=
@@ -1238,6 +1239,28 @@ Definition loop : com :=
 
 (** Here's an attempt at defining an evaluation function for commands,
     omitting the [WHILE] case. *)
+(*
+Fixpoint ceval_fun_no_while (st : state) (c : com) : state :=
+  match c with
+    | SKIP =>
+        st
+    | x ::= a1 =>
+        update st x (aeval st a1)
+    | c1 ;; c2 =>
+        let st' := ceval_fun_no_while st c1 in
+        ceval_fun_no_while st' c2
+    | IFB b THEN c1 ELSE c2 FI =>
+        if (beval st b)
+          then ceval_fun_no_while st c1
+          else ceval_fun_no_while st c2
+    | WHILE b DO c END =>
+        if beval st b
+        then (
+          let st' := ceval_fun_no_while st c in
+          ceval_fun_no_while st' (WHILE b DO c END) (* didn't decrease anything! *)
+          )
+        else st
+  end.*) (* if it doesn't return, it can not be function. so fail. *)
 
 Fixpoint ceval_fun_no_while (st : state) (c : com) : state :=
   match c with
@@ -1253,8 +1276,8 @@ Fixpoint ceval_fun_no_while (st : state) (c : com) : state :=
           then ceval_fun_no_while st c1
           else ceval_fun_no_while st c2
     | WHILE b DO c END =>
-        st  (* bogus *)
-  end.
+        st (* bogus *)
+  end. 
 (** In a traditional functional programming language like ML or
     Haskell we could write the [WHILE] case as follows:
 <<
