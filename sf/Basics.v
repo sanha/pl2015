@@ -1046,8 +1046,8 @@ Inductive bin : Type :=
 Fixpoint bin_incr (b: bin) : bin :=
 match b with
 | BO => P BO
-| T b' => P (T b')
-| P b' => T b'
+| T b' => P b'
+| P b' => T (bin_incr b')
 end.
 
 Eval compute in bin_incr (P (T (T (P BO)))).
@@ -1056,7 +1056,7 @@ Fixpoint bin_to_nat (b: bin) : nat :=
 match b with
 | BO => 0
 | T b' => mult 2 (bin_to_nat b')
-| P b' => S (bin_to_nat b')
+| P b' => S (mult 2 (bin_to_nat b'))
 end.
 
 Eval compute in bin_to_nat BO.
