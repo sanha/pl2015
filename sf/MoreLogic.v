@@ -1,6 +1,8 @@
 (** * MoreLogic: More on Logic in Coq *)
 
 Require Export "Prop".
+
+Check eq_refl.
 (*
 Inductive eq (A : Type) (x: A) : A -> Prop :=
   eq_refl : eq A x x
@@ -8,18 +10,13 @@ Inductive eq (A : Type) (x: A) : A -> Prop :=
 
 Check eq_refl.
 *)
+
 Lemma foo : forall n, 2 + n = n + 2. (* eq nat (2+n) (n+2) *)
 Proof.
   intros. induction n.
   - simpl. apply eq_refl.
   - simpl. rewrite <- IHn. simpl. apply eq_refl.
 Qed.
-(*
-Goal foo = foo.
-unfold foo at 1.
-unfold eq_ind.
-unfold eq_rect.
-*)
 
 (* ############################################################ *)
 (** * Existential Quantification *)
@@ -129,7 +126,10 @@ Qed.
 Theorem dist_not_exists : forall (X:Type) (P : X -> Prop),
   (forall x, P x) -> ~ (exists x, ~ P x).
 Proof. 
-  (* FILL IN HERE *) Admitted.
+  intros. unfold not at 1. intros. inversion H0 as [w1 H1]. unfold not in H1. apply H1 in H. apply H.
+Qed.
+   
+
 (** [] *)
 
 (** **** Exercise: 3 stars, optional (not_exists_dist)  *)
