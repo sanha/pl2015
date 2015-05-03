@@ -12,12 +12,25 @@ Require Export Assignment07_00.
     as elegant as possible. *)
 
 Fixpoint optimize_0plus_b (b : bexp) : bexp :=
-  (* FILL IN HERE *) admit.
+  match b with
+  | BEq a1 a2 => BEq (optimize_0plus a1) (optimize_0plus a2)
+  | BLe a1 a2 => BLe (optimize_0plus a1) (optimize_0plus a2)
+  | _ => b
+  end.
+
+Theorem optimize_0plus_sound: forall a,
+  aeval (optimize_0plus a) = aeval a.
+Proof.
+  intros a. induction a ; simpl ;auto.
+  - destruct a1 ; simpl ; auto.
+    + destruct n. 
+      * auto. 
+      * simpl. auto.
+Qed.
 
 Theorem optimize_0plus_b_sound : forall b,
   beval (optimize_0plus_b b) = beval b.
 Proof.
-  (* FILL IN HERE *) admit.
+  intros. destruct b ; try simpl ; repeat try rewrite optimize_0plus_sound; try auto.
 Qed.
 (** [] *)
-

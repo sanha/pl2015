@@ -22,10 +22,23 @@ Fixpoint optimize_1mult (a:aexp) : aexp :=
     If you use the tacticals [;], [try] and [omega] well,
     you can prove the following theorem in 5 lines.
  **)
-
 Theorem optimize_1mult_sound: forall a,
   aeval (optimize_1mult a) = aeval a.
 Proof.
-  admit.
+  intros. induction a. auto. simpl. auto. simpl. auto. induction a1.
+  - destruct n ; try auto. induction a2 ; try auto.
+    + destruct n ; try auto. destruct n ; try auto.
+    + destruct n ; auto. simpl. omega.
+      induction a2 ; simpl ; auto.
+      * destruct n0 ; try auto. destruct n0 ; auto.
+        simpl. omega.
+  - induction a2 ; simpl ; auto.
+    + destruct n ; auto. simpl. omega. destruct n ; auto. simpl. rewrite mult_1_r. auto.
+      simpl. auto.
+  - induction a2 ; simpl ; auto.
+    + destruct n ; auto. simpl. omega. destruct n; auto. simpl. rewrite mult_1_r. auto.
+      simpl. auto.
+  - induction a2 ; simpl ; auto.
+    + destruct n ; auto. simpl. omega. destruct n; auto. simpl. rewrite mult_1_r. auto.
+      simpl. auto. 
 Qed.
-
