@@ -610,6 +610,7 @@ Qed.
        applied to solve the current goal.  If one is found, behave
        like [apply c]. *)
 
+
 (** We'll see many examples of these in the proofs below. *)
 
 (* ####################################################### *)
