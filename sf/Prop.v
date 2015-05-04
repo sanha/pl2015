@@ -1,4 +1,4 @@
-(** * Prop: Propositions and Evidence *)
+Ub** * Prop: Propositions and Evidence *)
 
 Require Export Logic.
 
