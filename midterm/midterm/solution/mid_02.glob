@@ -1,0 +1,13 @@
+DIGEST 2781989fdb1749527286f5be074acb29
+Fmid_02
+R15:20 mid_01 <> <> lib
+def 170:179 <> square_sum
+R185:187 Coq.Init.Datatypes <> nat ind
+R192:194 Coq.Init.Datatypes <> nat ind
+R220:224 mid_00 <> admit prfax
+def 236:254 <> square_sum_example1
+R269:271 Coq.Init.Logic <> :type_scope:x_'='_x not
+R257:266 mid_02 <> square_sum def
+def 323:341 <> square_sum_example2
+R357:359 Coq.Init.Logic <> :type_scope:x_'='_x not
+R344:353 mid_02 <> square_sum def

@@ -1,0 +1,16 @@
+DIGEST a8701423b64172e277691c0c328b4674
+Fmid_06
+R15:20 mid_05 <> <> lib
+prf 111:121 <> odd_or_even
+R136:142 Coq.Init.Logic <> :type_scope:'exists'_x_'..'_x_','_x not
+R144:145 Coq.Init.Logic <> :type_scope:'exists'_x_'..'_x_','_x not
+R153:156 Coq.Init.Logic <> :type_scope:x_'\/'_x not
+R147:149 Coq.Init.Logic <> :type_scope:x_'='_x not
+R146:146 mid_06 <> n var
+R151:151 Coq.Init.Peano <> :nat_scope:x_'*'_x not
+R152:152 mid_06 <> k var
+R158:160 Coq.Init.Logic <> :type_scope:x_'='_x not
+R157:157 mid_06 <> n var
+R162:164 Coq.Init.Peano <> :nat_scope:x_'+'_x not
+R166:166 Coq.Init.Peano <> :nat_scope:x_'*'_x not
+R167:167 mid_06 <> k var

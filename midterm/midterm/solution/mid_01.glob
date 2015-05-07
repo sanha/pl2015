@@ -1,0 +1,13 @@
+DIGEST f6035fee408361e7419141536df4e1b3
+Fmid_01
+R15:20 mid_00 <> <> lib
+prf 109:125 <> forall_not_ex_not
+R149:149 mid_01 <> X var
+R180:180 mid_01 <> P var
+R182:182 mid_01 <> x var
+R188:189 Coq.Init.Logic <> :type_scope:'~'_x not
+R190:196 Coq.Init.Logic <> :type_scope:'exists'_x_'..'_x_','_x not
+R198:199 Coq.Init.Logic <> :type_scope:'exists'_x_'..'_x_','_x not
+R200:201 Coq.Init.Logic <> :type_scope:'~'_x not
+R202:202 mid_01 <> P var
+R204:204 mid_01 <> x var

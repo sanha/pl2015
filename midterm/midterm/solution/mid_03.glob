@@ -1,0 +1,13 @@
+DIGEST f567e672250a3d4e6de0f3c1c0b0a876
+Fmid_03
+R15:20 mid_02 <> <> lib
+def 227:235 <> fibonacci
+R241:243 Coq.Init.Datatypes <> nat ind
+R248:250 Coq.Init.Datatypes <> nat ind
+R276:280 mid_00 <> admit prfax
+def 292:309 <> fibonacci_example1
+R323:325 Coq.Init.Logic <> :type_scope:x_'='_x not
+R312:320 mid_03 <> fibonacci def
+def 376:393 <> fibonacci_example2
+R408:410 Coq.Init.Logic <> :type_scope:x_'='_x not
+R396:404 mid_03 <> fibonacci def

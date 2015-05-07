@@ -1,0 +1,20 @@
+DIGEST b18fe8e3bb71ea7344f51dc375f7ff4f
+Fmid_05
+R15:20 mid_04 <> <> lib
+prf 111:125 <> app_tail_cancel
+R145:148 mid_00 <> list ind
+R150:150 mid_05 <> X var
+R173:175 Coq.Init.Logic <> :type_scope:x_'='_x not
+R166:169 mid_00 <> ::x_'++'_x not
+R164:165 mid_05 <> l1 var
+R170:170 mid_00 <> ::'['_x_';'_'..'_';'_x_']' not
+R172:172 mid_00 <> ::'['_x_';'_'..'_';'_x_']' not
+R171:171 mid_05 <> a var
+R178:181 mid_00 <> ::x_'++'_x not
+R176:177 mid_05 <> l2 var
+R182:182 mid_00 <> ::'['_x_';'_'..'_';'_x_']' not
+R184:184 mid_00 <> ::'['_x_';'_'..'_';'_x_']' not
+R183:183 mid_05 <> a var
+R192:194 Coq.Init.Logic <> :type_scope:x_'='_x not
+R190:191 mid_05 <> l1 var
+R195:196 mid_05 <> l2 var

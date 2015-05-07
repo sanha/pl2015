@@ -1,0 +1,19 @@
+DIGEST e140745d28557f80f3b4c671489e4dce
+Fmid_04
+R15:20 mid_03 <> <> lib
+def 114:120 <> odd_sum
+R126:128 Coq.Init.Datatypes <> nat ind
+R133:135 Coq.Init.Datatypes <> nat ind
+R148:148 mid_04 <> n var
+R170:170 Coq.Init.Datatypes <> S constr
+R184:186 Coq.Init.Peano <> :nat_scope:x_'+'_x not
+R178:180 Coq.Init.Peano <> :nat_scope:x_'+'_x not
+R182:182 Coq.Init.Peano <> :nat_scope:x_'*'_x not
+R187:193 mid_04 <> odd_sum def
+prf 213:227 <> odd_sum__square
+R251:253 Coq.Init.Logic <> :type_scope:x_'='_x not
+R242:248 mid_04 <> odd_sum def
+R250:250 mid_04 <> n var
+R255:257 Coq.Init.Peano <> :nat_scope:x_'*'_x not
+R254:254 mid_04 <> n var
+R258:258 mid_04 <> n var

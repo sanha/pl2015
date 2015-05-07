@@ -1,0 +1,63 @@
+DIGEST 5fcc572708c7296bfa4106e501bfe030
+Fmid_00
+R16:20 Coq.Arith.Arith <> <> lib
+R22:27 Coq.Numbers.Natural.Peano.NPeano <> <> lib
+def 965:969 <> admit
+R983:983 mid_00 <> T var
+ind 1042:1045 <> list
+constr 1070:1072 <> nil
+constr 1087:1090 <> cons
+R1076:1079 mid_00 <> list ind
+R1109:1112 mid_00 <> list ind
+R1099:1102 mid_00 <> list ind
+def 1127:1129 <> app
+R1151:1154 mid_00 <> list ind
+R1156:1156 mid_00 <> X var
+R1178:1181 mid_00 <> list ind
+R1183:1183 mid_00 <> X var
+R1197:1198 mid_00 <> l1 var
+R1209:1211 mid_00 <> nil constr
+R1221:1222 mid_00 <> l2 var
+R1228:1231 mid_00 <> cons constr
+R1240:1243 mid_00 <> cons constr
+R1250:1252 mid_00 <> app def
+R1258:1259 mid_00 <> l2 var
+R1254:1254 mid_00 <> X var
+R1245:1245 mid_00 <> X var
+R1280:1282 mid_00 <> nil constr
+R1280:1282 mid_00 <> nil constr
+R1299:1302 mid_00 <> cons constr
+R1299:1302 mid_00 <> cons constr
+R1323:1325 mid_00 <> app def
+R1323:1325 mid_00 <> app def
+R1361:1364 mid_00 <> cons constr
+not 1348 <> ::x_'::'_x
+R1446:1448 mid_00 <> nil constr
+not 1437 <> ::'['_']'
+R1481:1484 mid_00 <> cons constr
+R1492:1495 mid_00 <> cons constr
+R1499:1500 mid_00 <> ::'['_']' not
+not 1460 <> ::'['_x_';'_'..'_';'_x_']'
+R1530:1532 mid_00 <> app def
+not 1517 <> ::x_'++'_x
+R1605:1609 mid_00 <> ::x_'::'_x not
+R1622:1622 mid_00 <> ::x_'::'_x not
+R1616:1619 mid_00 <> ::x_'++'_x not
+R1610:1610 mid_00 <> ::'['_x_';'_'..'_';'_x_']' not
+R1612:1613 mid_00 <> ::'['_x_';'_'..'_';'_x_']' not
+R1615:1615 mid_00 <> ::'['_x_';'_'..'_';'_x_']' not
+R1620:1621 mid_00 <> ::'['_']' not
+R1687:1695 Coq.Arith.Mult <> mult_comm thm
+R1704:1711 Coq.Arith.Mult <> mult_1_r thm
+R1720:1729 Coq.Arith.Mult <> mult_assoc thm
+R1738:1746 Coq.Arith.Plus <> plus_comm thm
+R1755:1762 Coq.Arith.Plus <> plus_0_r def
+R1771:1780 Coq.Arith.Plus <> plus_assoc thm
+R1789:1798 Coq.Arith.Minus <> plus_minus thm
+R1807:1823 Coq.Arith.Mult <> mult_plus_distr_l thm
+R1832:1848 Coq.Arith.Mult <> mult_plus_distr_r thm
+R1857:1874 Coq.Arith.Mult <> mult_minus_distr_l thm
+R1883:1900 Coq.Arith.Mult <> mult_minus_distr_r thm
+R1910:1918 Coq.Arith.Lt <> le_not_lt thm
+R1927:1937 Coq.Arith.Lt <> lt_le_trans thm
+R1946:1954 Coq.Arith.Lt <> lt_irrefl thm

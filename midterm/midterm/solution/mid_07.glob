@@ -1,0 +1,35 @@
+DIGEST 436382032d1f631bdca71a6c14c87c8c
+Fmid_07
+R15:20 mid_06 <> <> lib
+prf 109:127 <> two_three_rel_prime
+R155:157 Coq.Init.Logic <> :type_scope:x_'='_x not
+R151:153 Coq.Init.Peano <> :nat_scope:x_'*'_x not
+R154:154 mid_07 <> n var
+R159:161 Coq.Init.Peano <> :nat_scope:x_'*'_x not
+R162:162 mid_07 <> m var
+R168:174 Coq.Init.Logic <> :type_scope:'exists'_x_'..'_x_','_x not
+R176:177 Coq.Init.Logic <> :type_scope:'exists'_x_'..'_x_','_x not
+R179:181 Coq.Init.Logic <> :type_scope:x_'='_x not
+R178:178 mid_07 <> m var
+R183:185 Coq.Init.Peano <> :nat_scope:x_'*'_x not
+R186:186 mid_07 <> k var
+R218:228 mid_06 <> odd_or_even thm
+R218:228 mid_06 <> odd_or_even thm
+R363:379 Coq.Arith.Mult <> mult_plus_distr_l thm
+R363:379 Coq.Arith.Mult <> mult_plus_distr_l thm
+R400:409 Coq.Arith.Mult <> mult_assoc thm
+R400:409 Coq.Arith.Mult <> mult_assoc thm
+R431:439 Coq.Arith.Mult <> mult_comm thm
+R431:439 Coq.Arith.Mult <> mult_comm thm
+R465:473 Coq.Arith.Plus <> plus_comm thm
+R465:473 Coq.Arith.Plus <> plus_comm thm
+R497:506 Coq.Arith.Mult <> mult_assoc thm
+R497:506 Coq.Arith.Mult <> mult_assoc thm
+R525:534 Coq.Arith.Minus <> plus_minus thm
+R525:534 Coq.Arith.Minus <> plus_minus thm
+R558:575 Coq.Arith.Mult <> mult_minus_distr_l thm
+R558:575 Coq.Arith.Mult <> mult_minus_distr_l thm
+R599:599 Coq.Init.Peano <> :nat_scope:x_'-'_x not
+R601:601 Coq.Init.Peano <> :nat_scope:x_'*'_x not
+R599:599 Coq.Init.Peano <> :nat_scope:x_'-'_x not
+R601:601 Coq.Init.Peano <> :nat_scope:x_'*'_x not

@@ -1,0 +1,121 @@
+DIGEST 0980113b324785e087d5b499702d2672
+Fmid_08
+R15:20 mid_07 <> <> lib
+ind 280:289 <> sorted_min
+constr 323:332 <> sorted_nil
+constr 358:368 <> sorted_cons
+R299:302 mid_00 <> list ind
+R304:306 Coq.Init.Datatypes <> nat ind
+R292:294 Coq.Init.Datatypes <> nat ind
+R338:347 mid_08 <> sorted_min ind
+R351:352 mid_00 <> ::'['_']' not
+R349:349 mid_08 <> n var
+R382:385 Coq.Init.Peano <> :nat_scope:x_'<='_x not
+R381:381 mid_08 <> n var
+R386:386 mid_08 <> m var
+R398:407 mid_08 <> sorted_min ind
+R411:411 mid_08 <> l var
+R409:409 mid_08 <> m var
+R420:429 mid_08 <> sorted_min ind
+R435:438 mid_00 <> ::x_'::'_x not
+R434:434 mid_08 <> m var
+R439:439 mid_08 <> l var
+R431:431 mid_08 <> n var
+def 453:471 <> sorted_min_example1
+R474:483 mid_08 <> sorted_min ind
+R487:487 mid_00 <> ::'['_x_';'_'..'_';'_x_']' not
+R489:490 mid_00 <> ::'['_x_';'_'..'_';'_x_']' not
+R492:493 mid_00 <> ::'['_x_';'_'..'_';'_x_']' not
+R495:496 mid_00 <> ::'['_x_';'_'..'_';'_x_']' not
+R498:499 mid_00 <> ::'['_x_';'_'..'_';'_x_']' not
+R501:501 mid_00 <> ::'['_x_';'_'..'_';'_x_']' not
+def 554:572 <> sorted_min_example2
+R575:584 mid_08 <> sorted_min ind
+R588:588 mid_00 <> ::'['_x_';'_'..'_';'_x_']' not
+R590:591 mid_00 <> ::'['_x_';'_'..'_';'_x_']' not
+R593:594 mid_00 <> ::'['_x_';'_'..'_';'_x_']' not
+R596:597 mid_00 <> ::'['_x_';'_'..'_';'_x_']' not
+R599:599 mid_00 <> ::'['_x_';'_'..'_';'_x_']' not
+def 652:674 <> sorted_min_non_example1
+R700:704 Coq.Init.Logic <> False ind
+R677:686 mid_08 <> sorted_min ind
+R690:690 mid_00 <> ::'['_x_';'_'..'_';'_x_']' not
+R692:693 mid_00 <> ::'['_x_';'_'..'_';'_x_']' not
+R695:695 mid_00 <> ::'['_x_';'_'..'_';'_x_']' not
+ind 820:829 <> appears_in
+constr 865:871 <> ai_here
+constr 907:914 <> ai_later
+R836:838 Coq.Init.Datatypes <> nat ind
+R843:846 mid_00 <> list ind
+R848:850 Coq.Init.Datatypes <> nat ind
+R885:894 mid_08 <> appears_in ind
+R900:901 mid_00 <> ::x_'::'_x not
+R902:902 mid_08 <> l var
+R948:957 mid_08 <> appears_in ind
+R963:964 mid_00 <> ::x_'::'_x not
+R962:962 mid_08 <> m var
+R965:965 mid_08 <> l var
+R930:939 mid_08 <> appears_in ind
+R943:943 mid_08 <> l var
+prf 976:988 <> sorted_not_in
+R1017:1026 mid_08 <> sorted_min ind
+R1030:1030 mid_08 <> l var
+R1028:1028 mid_08 <> m var
+R1043:1045 Coq.Init.Peano <> :nat_scope:x_'<'_x not
+R1042:1042 mid_08 <> n var
+R1046:1046 mid_08 <> m var
+R1052:1053 Coq.Init.Logic <> :type_scope:'~'_x not
+R1054:1063 mid_08 <> appears_in ind
+R1067:1067 mid_08 <> l var
+R1065:1065 mid_08 <> n var
+R1223:1231 Coq.Arith.Lt <> le_not_lt thm
+R1223:1231 Coq.Arith.Lt <> le_not_lt thm
+R1294:1304 Coq.Arith.Lt <> lt_le_trans thm
+R1294:1304 Coq.Arith.Lt <> lt_le_trans thm
+R1494:1500 Coq.Arith.EqNat <> beq_nat def
+R1509:1521 Coq.Arith.EqNat <> beq_nat_false thm
+R1530:1541 Coq.Arith.EqNat <> beq_nat_true thm
+R1550:1561 Coq.Arith.EqNat <> beq_nat_refl thm
+R1711:1713 Coq.Numbers.Natural.Peano.NPeano <> ltb def
+R1722:1727 Coq.Numbers.Natural.Peano.NPeano <> ltb_lt thm
+def 1740:1750 <> appears_inb
+R1756:1758 Coq.Init.Datatypes <> nat ind
+R1765:1768 mid_00 <> list ind
+R1770:1772 Coq.Init.Datatypes <> nat ind
+R1777:1780 Coq.Init.Datatypes <> bool ind
+R1793:1793 mid_08 <> l var
+R1804:1806 mid_00 <> nil constr
+R1811:1815 Coq.Init.Datatypes <> false constr
+R1822:1825 mid_00 <> ::x_'::'_x not
+R1840:1842 Coq.Numbers.Natural.Peano.NPeano <> ltb def
+R1844:1844 mid_08 <> n var
+R1876:1882 Coq.Arith.EqNat <> beq_nat def
+R1884:1884 mid_08 <> n var
+R1923:1933 mid_08 <> appears_inb def
+R1935:1935 mid_08 <> n var
+R1903:1906 Coq.Init.Datatypes <> true constr
+R1857:1861 Coq.Init.Datatypes <> false constr
+prf 1957:1975 <> appears_inb_correct
+R2002:2011 mid_08 <> sorted_min ind
+R2015:2015 mid_08 <> l var
+R2049:2051 Coq.Init.Logic <> :type_scope:x_'='_x not
+R2034:2044 mid_08 <> appears_inb def
+R2048:2048 mid_08 <> l var
+R2046:2046 mid_08 <> n var
+R2052:2056 Coq.Init.Datatypes <> false constr
+R2062:2063 Coq.Init.Logic <> :type_scope:'~'_x not
+R2064:2073 mid_08 <> appears_in ind
+R2077:2077 mid_08 <> l var
+R2075:2075 mid_08 <> n var
+R2264:2265 Coq.Numbers.Natural.Peano.NPeano <> :nat_scope:x_'<?'_x not
+R2264:2265 Coq.Numbers.Natural.Peano.NPeano <> :nat_scope:x_'<?'_x not
+R2290:2295 Coq.Numbers.Natural.Peano.NPeano <> ltb_lt thm
+R2290:2295 Coq.Numbers.Natural.Peano.NPeano <> ltb_lt thm
+R2345:2353 Coq.Arith.Lt <> lt_irrefl thm
+R2345:2353 Coq.Arith.Lt <> lt_irrefl thm
+R2382:2394 mid_08 <> sorted_not_in thm
+R2382:2394 mid_08 <> sorted_not_in thm
+R2442:2448 Coq.Arith.EqNat <> beq_nat def
+R2442:2448 Coq.Arith.EqNat <> beq_nat def
+R2507:2519 Coq.Arith.EqNat <> beq_nat_false thm
+R2507:2519 Coq.Arith.EqNat <> beq_nat_false thm
