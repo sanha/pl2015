@@ -864,7 +864,7 @@ Fixpoint fold_constants_bexp (b : bexp) : bexp :=
       | (BFalse, BTrue) => BFalse
       | (BFalse, BFalse) => BFalse
       | (b1', b2') => BAnd b1' b2'
-      end
+      end (* can be optimized *)
   end.
 
 Example fold_bexp_ex1 :
@@ -890,7 +890,7 @@ Fixpoint fold_constants_com (c : com) : com :=
       SKIP
   | i ::= a  => 
       CAss i (fold_constants_aexp a)
-  | c1 ;; c2  => 
+  | c1 ;; c2  =>  (* can be optimized with SKIP *)
       (fold_constants_com c1) ;; (fold_constants_com c2)
   | IFB b THEN c1 ELSE c2 FI => 
       match fold_constants_bexp b with
