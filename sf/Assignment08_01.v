@@ -9,9 +9,7 @@ Example ceval_example2:
 Proof.
   apply E_Seq with (st' := update (empty_state) X 0). 
   - apply E_Ass. simpl. reflexivity.
-  - apply E_Seq with (st' := update (update empty_state X 0) Y 1).
-    + apply E_Ass. simpl. reflexivity.
-    + apply E_Ass. simpl. reflexivity.
+  - apply E_Seq with (st' := update (update empty_state X 0) Y 1) ; try (apply E_Ass; simpl; reflexivity).
 Qed.
 
 (*-- Check --*)

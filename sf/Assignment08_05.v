@@ -7,7 +7,13 @@ Require Export Assignment08_04.
     same as pushing the value of the expression on the stack. *)
 
 Fixpoint s_compile (e : aexp) : list sinstr :=
-  FILL_IN_HERE.
+  match e with 
+  | ANum n       => [SPush n]
+  | AId i        => [SLoad i]
+  | APlus e1 e2  => (s_compile e1) ++ (s_compile e2) ++ [SPlus]
+  | AMinus e1 e2 => (s_compile e1) ++ (s_compile e2) ++ [SMinus]
+  | AMult e1 e2  => (s_compile e1) ++ (s_compile e2) ++ [SMult]
+  end.
 
 (** After you've defined [s_compile], prove the following to test
     that it works. *)
@@ -16,7 +22,7 @@ Example s_compile1 :
     s_compile (AMinus (AId X) (AMult (ANum 2) (AId Y)))
   = [SLoad X; SPush 2; SLoad Y; SMult; SMinus].
 Proof.
-  exact FILL_IN_HERE.
+  simpl. reflexivity.
 Qed.
 
 (** **** Exercise: 3 stars, advanced (stack_compiler_correct)  *)
@@ -33,10 +39,27 @@ Qed.
     general lemma to get a usable induction hypothesis; the main
     theorem will then be a simple corollary of this lemma. *)
 
+Theorem s_execute_T : forall (st : state) (p1 p2 : list sinstr) (l : list nat),
+    s_execute st l (p1 ++ p2) = s_execute st (s_execute st l p1) p2.
+Proof.
+  induction p1.
+  - intros. simpl. reflexivity.
+  - intros. destruct a ; try (simpl ; apply IHp1).
+    + induction l. simpl. apply IHp1. induction l ; simpl ; auto.
+    + induction l. simpl. apply IHp1. induction l ; simpl ; auto.
+    + induction l. simpl. apply IHp1. induction l ; simpl ; auto.
+Qed.
+
+Theorem s_compile_T : forall (st : state) (l : list nat) (e : aexp),
+  s_execute st l (s_compile e) = aeval st e :: l.
+Proof.
+  intros st l e. generalize dependent l. induction e ; try auto ; try (intros ; simpl; repeat (rewrite s_execute_T); rewrite IHe2; rewrite IHe1; reflexivity).
+Qed.
+
 Theorem s_compile_correct : forall (st : state) (e : aexp),
   s_execute st [] (s_compile e) = [ aeval st e ].
 Proof.
-  exact FILL_IN_HERE.
+  intros. apply s_compile_T.
 Qed.
 
 (*-- Check --*)

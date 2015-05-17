@@ -11,7 +11,13 @@ Theorem swap_if_branches: forall b e1 e2,
     (IFB b THEN e1 ELSE e2 FI)
     (IFB BNot b THEN e2 ELSE e1 FI).
 Proof.
-  exact FILL_IN_HERE.
+  unfold cequiv. split ; intros.
+  - inversion H ; subst.
+    + apply E_IfFalse. simpl. rewrite H5. auto. assumption.
+    + apply E_IfTrue. simpl. rewrite H5. auto. assumption.
+  - inversion H ; subst.
+    + apply E_IfFalse. simpl in H5. destruct (beval st b). inversion H5. reflexivity. assumption.
+    + apply E_IfTrue. simpl in H5. destruct (beval st b). reflexivity. inversion H5. assumption.
 Qed.
 
 (*-- Check --*)
@@ -19,4 +25,3 @@ Check swap_if_branches: forall b e1 e2,
   cequiv
     (IFB b THEN e1 ELSE e2 FI)
     (IFB BNot b THEN e2 ELSE e1 FI).
-

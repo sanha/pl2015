@@ -11,7 +11,9 @@ Theorem skip_right: forall c,
     (c;; SKIP) 
     c.
 Proof. 
-  exact FILL_IN_HERE.
+  unfold cequiv. intros. split ; intros.
+  - inversion H. subst. inversion H5. subst. assumption. 
+  - apply E_Seq with st'. assumption. apply E_Skip.
 Qed.
 
 (*-- Check --*)
@@ -19,4 +21,3 @@ Check skip_right: forall c,
   cequiv 
     (c;; SKIP) 
     c.
-
