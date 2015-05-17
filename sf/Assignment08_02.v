@@ -9,14 +9,20 @@ Require Export Assignment08_01.
    (this latter part is trickier than you might expect). *)
 
 Definition pup_to_n : com :=
-  FILL_IN_HERE.
+  Y ::= ANum 0;;
+  WHILE BNot (BEq (AId Z) (ANum 0)) DO
+    Y ::= APlus (AId Y) (AId Z);;
+    Z ::= AMinus (AId Z) (ANum 1)
+  END.
 
 Example pup_to_2_ceval :
   pup_to_n / (update empty_state X 2) ||
     update (update (update (update (update (update empty_state
       X 2) Y 0) Y 2) X 1) Y 3) X 0.
 Proof.
-  exact FILL_IN_HERE.
+  unfold pup_to_n. apply E_Seq with (st':= update (update empty_state X 2) Y 0).
+  - 
+
 Qed.
 
 (*-- Check --*)
