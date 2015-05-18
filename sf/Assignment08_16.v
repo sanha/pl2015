@@ -5,8 +5,19 @@ Require Export Assignment08_15.
 Lemma optimize_0plus_aexp_sound:
   atrans_sound optimize_0plus_aexp.
 Proof.
-  unfold atrans_sound. unfold aequiv. induction a ; intros ; try reflexivity.
-  - simpl optimize_0plus_aexp.
+  unfold atrans_sound. unfold aequiv. intros. induction a ; try reflexivity.
+  - remember (optimize_0plus_aexp a1) as A1. remember (optimize_0plus_aexp a2) as A2.
+    destruct a1. 
+    + destruct n. simpl. rewrite <- HeqA2. apply IHa2.
+      simpl.
+
+      destruct a2. destruct n0. simpl. omega. simpl. omega. simpl. omega.
+      simpl optimize_0plus_aexp.
+
+ simpl. destruct (optimize_0plus_aexp a1) ; try (rewrite IHa1; rewrite IHa2 ; reflexivity).
+    + destruct n. rewrite IHa1. simpl. rewrite IHa2.
+ rewrite IHa1. rewrite IHa2. 
+
 
  induction (APlus a1 a2) ; try reflexivity.
     + simpl.
