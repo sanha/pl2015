@@ -99,8 +99,13 @@ Proof.
       (* The only interesting case is when both a1 and a2 
          become constants after folding *)
       simpl. destruct (beq_nat n n0); reflexivity.
-  Case "BLe". 
-    exact FILL_IN_HERE.
+  Case "BLe".
+    { simpl. remember (fold_constants_aexp a) as a' eqn: e1. 
+      remember (fold_constants_aexp a0) as a0' eqn: e2. assert ((aeval st a) = (aeval st a')).
+      rewrite e1. apply fold_constants_aexp_sound. assert ((aeval st a0) = (aeval st a0')).
+      rewrite e2. apply fold_constants_aexp_sound. rewrite H. rewrite H0. destruct a' ; destruct a0' ; try reflexivity.
+      simpl. destruct (ble_nat n n0) ; simpl ; reflexivity.
+    }
   Case "BNot". 
     simpl. remember (fold_constants_bexp b) as b' eqn:Heqb'. 
     rewrite IHb.
@@ -113,8 +118,8 @@ Proof.
     (***
      Note how we use the tactic [eauto].
      ***)
-    destruct b1'; destruct b2'; simpl; try reflexivity
-    ; eauto using andb_true_l, andb_true_r, andb_false_l, andb_false_r.
+    destruct b1'; destruct b2'; simpl; try reflexivity ;
+    eauto using andb_true_l, andb_true_r, andb_false_l, andb_false_r.
 Qed.
 
 (*-- Check --*)
