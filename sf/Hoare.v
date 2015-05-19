@@ -91,6 +91,11 @@ Definition Assertion := state -> Prop.
 
 (** **** Exercise: 1 star, optional (assertions)  *)
 Module ExAssertions.
+(* 5.7 *)
+Fixpoint sum n :=
+  match n with 0 => 0 | S n' => n + sum n' end.
+Definition P (n: nat) (S: state) : Prop := S(X) = n.
+Definition Q (n: nat) (S: state) : Prop := S(Y) = sum n.
 
 (** Paraphrase the following assertions in English. *)
 
