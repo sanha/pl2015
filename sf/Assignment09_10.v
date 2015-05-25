@@ -64,7 +64,41 @@ Theorem add_three_numbers_correct: forall a b c,
   END
   {{ fun st => st Z = a + b + c }}.
 Proof.
-  exact FILL_IN_HERE.
+  intros. apply hoare_seq with (Q := fun st : state => st X = 0).
+  apply hoare_seq with (Q := fun st : state => st X = 0 /\ st Y = 0).
+  apply hoare_seq with (Q := fun st : state => st X = 0 /\ st Y = 0 /\ st Z = c).
+  apply hoare_seq with (Q := fun st : state => st X = a /\ st Y = 0 /\ st Z = a + c).
+  { apply hoare_consequence_post with (fun st : state => st Z = st Y + a + c /\ beval st (BNot (BEq (AId Y) (ANum b))) = false).
+    apply hoare_consequence_pre with (fun st: state => st Z = st Y + a + c).
+    - apply hoare_while. simpl. eapply hoare_seq. apply hoare_asgn.
+      unfold assn_sub. simpl. unfold hoare_triple. intros. inversion H ; subst. simpl.
+      unfold update. simpl. omega.
+    - unfold assert_implies. intros. omega.
+    - unfold assert_implies. intros. inversion H ; subst. simpl in H1. unfold negb in H1. 
+      destruct (beq_nat (st Y) b) eqn: H'.
+      + apply beq_nat_true in H'. rewrite H' in H0. omega.
+      + inversion H1.
+  } 
+  { apply hoare_consequence_post with (fun st: state => (st Y = 0 /\ st Z = st X + c) /\ beval st (BNot (BEq (AId X) (ANum a))) = false).
+    apply hoare_consequence_pre with (fun st: state => st Y = 0 /\ st Z = st X + c).
+    - apply hoare_while. simpl. eapply hoare_seq. apply hoare_asgn.
+      unfold assn_sub. simpl. unfold hoare_triple. intros. inversion H ; subst. simpl.
+      unfold update. simpl. omega.
+    - unfold assert_implies. intros. omega.
+    - unfold assert_implies. intros. inversion H ; subst. inversion H0 ; subst. simpl in H1. unfold negb in H1. 
+      destruct (beq_nat (st X) a) eqn: H'.
+      + apply beq_nat_true in H'. rewrite H' in H0. omega.
+      + inversion H1.
+  }
+  - unfold hoare_triple. intros. constructor.
+    + inversion H0. inversion H ; subst. simpl. unfold update. auto.
+    + constructor.
+      * inversion H0. inversion H ; subst. simpl. unfold update. auto.
+      * inversion H0. inversion H ; subst. simpl. unfold update. auto.
+  - unfold hoare_triple. intros. constructor.
+    + inversion H ; subst. simpl. unfold update. auto.
+    + inversion H ; subst. simpl. unfold update. auto.
+  - unfold hoare_triple. intros. inversion H ; subst. unfold update. auto.
 Qed.
 
 (*-- Check --*)

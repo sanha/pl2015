@@ -46,7 +46,7 @@ Lemma parity_lt_2 : forall x,
   ~ 2 <= x ->
   parity (x) = x.
 Proof.
-  intros. induction x. reflexivity. destruct x. reflexivity.
+  intros. induction x. reflexivity. destruct x. reflexivity. 
     apply ex_falso_quodlibet. apply H. omega.
 Qed.
 
@@ -57,7 +57,16 @@ Theorem parity_correct : forall m,
   END
     {{ fun st => st X = parity m }}.
 Proof.
-  exact FILL_IN_HERE.
+  intros. apply hoare_consequence_post with (Q' := fun st : state => parity (st X) = parity m /\ beval st (BLe (ANum 2) (AId X)) = false).
+  apply hoare_consequence_pre with (P' := fun st : state => parity (st X) = parity m).
+  - apply hoare_while with (b := BLe (ANum 2) (AId X)) (c := X ::= AMinus (AId X) (ANum 2)).
+    unfold hoare_triple. intros. inversion H0; subst. inversion H; subst. simpl. unfold update. simpl.
+    rewrite <- H1. apply parity_ge_2. simpl in H2. induction (st X). inversion H2.
+    destruct n. inversion H2. omega.
+  - unfold assert_implies. intros. rewrite <- H. reflexivity.
+  - unfold assert_implies. intros. inversion H ; subst. rewrite <- H0. symmetry. apply parity_lt_2.
+    unfold not. intros. simpl in H1. induction (st X). inversion H2. destruct n. inversion H2. inversion H4.
+    inversion H1.
 Qed.
 
 (*-- Check --*)
