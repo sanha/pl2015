@@ -31,16 +31,41 @@ Require Export Assignment10_07.
     properties of [==>*]: that it is reflexive, transitive, and
     includes [==>]. *)
 
+(** **** Exercise: 2 stars (multistep_congr_2)  *)
+Lemma multistep_congr_1 : forall t1 t1' t2,
+     t1 ==>* t1' ->
+     P t1 t2 ==>* P t1' t2.
+Proof.
+  intros t1 t1' t2 H. multi_cases (induction H) Case.
+    Case "multi_refl". apply multi_refl. 
+    Case "multi_step". apply multi_step with (P y t2). 
+        apply ST_Plus1. apply H. 
+        apply IHmulti.  Qed.
+
+Lemma nf_is_value : forall t,
+  normal_form step t -> value t.
+Proof. (* a corollary of [strong_progress]... *)
+  unfold normal_form. intros t H.
+  assert (G : value t \/ exists t', t ==> t').
+    SCase "Proof of assertion". apply strong_progress.
+  inversion G.
+    SCase "l". apply H0.
+    SCase "r". apply ex_falso_quodlibet. apply H. assumption.  Qed.
+
 Theorem eval__multistep : forall t n,
   t || n -> t ==>* C n.
 Proof.
   intros. induction H.
   - apply multi_refl.
   - assert (P t1 t2 ==>* P (C n1) t2).
-    inversion IHeval1; subst. apply multi_refl.
-
-
-  exact FILL_IN_HERE.
+    apply multistep_congr_1. assumption.
+    assert (P (C n1) t2 ==>* P (C n1) (C n2)).
+    apply multistep_congr_2 ; try assumption. apply nf_is_value. unfold normal_form.
+    intros contra. inversion contra. inversion H2.
+    assert (P (C n1) (C n2) ==> C (n1 + n2)).
+    constructor. apply multi_trans with (y := P (C n1) t2) ; try assumption.
+    apply multi_trans with (y := P (C n1) (C n2)) ; try assumption.
+    apply multi_R with tm step (P (C n1) (C n2)) (C (n1 + n2)) in H3. assumption.
 Qed.
 
 (*-- Check --*)
