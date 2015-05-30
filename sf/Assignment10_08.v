@@ -34,6 +34,12 @@ Require Export Assignment10_07.
 Theorem eval__multistep : forall t n,
   t || n -> t ==>* C n.
 Proof.
+  intros. induction H.
+  - apply multi_refl.
+  - assert (P t1 t2 ==>* P (C n1) t2).
+    inversion IHeval1; subst. apply multi_refl.
+
+
   exact FILL_IN_HERE.
 Qed.
 
