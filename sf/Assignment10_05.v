@@ -14,7 +14,11 @@ Lemma test_multistep_4:
         (C 0)
         (C (2 + (0 + 3))).
 Proof.
-  exact FILL_IN_HERE.
+  apply multi_step with (y:= P (C 0) (P (C 2) (C (0 + 3)))).
+  repeat constructor.
+  apply multi_step with (y:= P (C 0) (C (2 + (0 + 3)))).
+  repeat constructor.
+  constructor.
 Qed.
 
 (*-- Check --*)

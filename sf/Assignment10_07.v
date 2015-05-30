@@ -8,6 +8,9 @@ Lemma multistep_congr_2 : forall t1 t2 t2',
      t2 ==>* t2' ->
      P t1 t2 ==>* P t1 t2'.
 Proof.
+  intros.
+
+
   exact FILL_IN_HERE.
 Qed.
 
