@@ -13,11 +13,16 @@ Require Export Assignment10_14.
      destruct ... as [[? | ?] | [? ?]].
 *)
 
+Hint Constructors bstep.
+
 Theorem bexp_strong_progress: forall st b,
   (b = BTrue \/ b = BFalse) \/
   exists b', b / st ==>b b'.
 Proof.
-  
+  induction b ; intros.
+  - left. eauto.
+  - left. eauto.
+  - right. 
 
 
   exact FILL_IN_HERE.
