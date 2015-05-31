@@ -12,7 +12,8 @@ Require Export Assignment10_14.
    You can use the following intro pattern:
      destruct ... as [[? | ?] | [? ?]].
 *)
-
+Hint Constructors aval.
+Hint Constructors astep.
 Hint Constructors bstep.
 
 Theorem bexp_strong_progress: forall st b,

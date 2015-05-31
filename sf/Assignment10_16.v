@@ -12,7 +12,9 @@ Require Export Assignment10_15.
    You can use the following intro pattern:
      destruct ... as [ | [? [? ?]]].
 *)
-
+Hint Constructors aval.
+Hint Constructors astep.
+Hint Constructors bstep.
 Hint Constructors cstep.
 
 Theorem cimp_strong_progress : forall c st,
