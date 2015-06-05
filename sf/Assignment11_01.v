@@ -6,7 +6,10 @@ Require Export Assignment11_00.
 Example some_term_is_stuck :
   exists t, stuck t.
 Proof.
-  exact FILL_IN_HERE.
+  exists (tif tzero ttrue tzero). unfold stuck. split.
+  - unfold normal_form. intros contra. inversion contra.
+    inversion H ; subst. inversion H4.
+  - intros contra. inversion contra; solve by inversion.
 Qed.
 
 (*-- Check --*)

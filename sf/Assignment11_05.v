@@ -28,11 +28,23 @@ Proof with auto.
     SCase "t1 can take a step".
       inversion H as [t1' H1].
       exists (tif t1' t2 t3)...
-      exact FILL_IN_HERE.
-  Case "T_Pred".
-    exact FILL_IN_HERE.
-  Case "T_Iszero".
-    exact FILL_IN_HERE.
+      { inversion IHHT; subst.
+        - left. assert (nvalue t1). apply nat_canonical ; assumption.
+          compute. right. constructor. assumption.
+        - right. inversion H. eexists. constructor. eauto.
+      }
+      { inversion IHHT ; subst.
+        - assert (nvalue t1). apply nat_canonical ; assumption. inversion H0.
+          + right. eauto.
+          + right. eauto.
+        - right. inversion H. eexists. constructor. eauto.
+      }
+      { inversion IHHT; subst.
+        - assert (nvalue t1). apply nat_canonical ; assumption. inversion H0.
+          + right. eexists. constructor.
+          + right. eexists. constructor. assumption.
+        - right. inversion H. eexists. constructor. eauto.
+      } 
 Qed.
 
 (*-- Check --*)

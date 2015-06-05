@@ -17,7 +17,9 @@ Theorem subject_expansion_false:
     |- t' \in T /\
     ~ |- t \in T.
 Proof.
-  exact FILL_IN_HERE.
+  exists (tif ttrue tzero ttrue). exists tzero. exists TNat.
+  split. eauto. split. eauto. intro contra.
+  inversion contra ; subst. inversion H5.
 Qed.
 
 (*-- Check --*)
