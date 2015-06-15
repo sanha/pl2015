@@ -7,6 +7,10 @@ Corollary soundness : forall t t' T,
   t ==>* t' ->
   ~(stuck t').
 Proof.
+
+
+
+
   exact FILL_IN_HERE.
 Qed.
 
