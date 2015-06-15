@@ -1399,7 +1399,8 @@ Inductive ceval : com -> state -> state -> Prop :=
                   c1 / st || st' ->
                   (WHILE b1 DO c1 END) / st' || st'' ->
                   (WHILE b1 DO c1 END) / st || st''
-(* FILL IN HERE *)
+  | E_Havoc : forall (st: state) (X: id) (n: nat),
+              (HAVOC X) / st || update st X n (* googled *)
 
   where "c1 '/' st '||' st'" := (ceval c1 st st').
 
@@ -1408,7 +1409,7 @@ Tactic Notation "ceval_cases" tactic(first) ident(c) :=
   [ Case_aux c "E_Skip" | Case_aux c "E_Ass" | Case_aux c "E_Seq"
   | Case_aux c "E_IfTrue" | Case_aux c "E_IfFalse"
   | Case_aux c "E_WhileEnd" | Case_aux c "E_WhileLoop"
-(* FILL IN HERE *)
+  | Case_aux c "E_Havoc"
 ].
 
 (** As a sanity check, the following claims should be provable for
@@ -1416,12 +1417,13 @@ Tactic Notation "ceval_cases" tactic(first) ident(c) :=
 
 Example havoc_example1 : (HAVOC X) / empty_state || update empty_state X 0.
 Proof.
-(* FILL IN HERE *) Admitted.
+  constructor.
+Qed.
 
 Example havoc_example2 :
   (SKIP;; HAVOC Z) / empty_state || update empty_state Z 42.
 Proof.
-(* FILL IN HERE *) Admitted.
+  eapply E_Seq. constructor. constructor. Qed.
 (** [] *)
 
 (** Finally, we repeat the definition of command equivalence from above: *)
@@ -1466,7 +1468,29 @@ Definition pcopy :=
 
 Theorem ptwice_cequiv_pcopy :
   cequiv ptwice pcopy \/ ~cequiv ptwice pcopy.
-Proof. (* FILL IN HERE *) Admitted.
+Proof. 
+  right. unfold ptwice. unfold pcopy. unfold cequiv. intro Contra.
+  remember empty_state as st.
+  remember (update (update empty_state X 0) Y 1) as st'.
+  assert ((HAVOC X;; HAVOC Y) / st || st' ->
+          (HAVOC X;; Y ::= AId X) / st || st') by apply Contra.
+  assert (~(HAVOC X;; Y ::= AId X) / st || st').
+  Case "Proof of assertion".
+    subst. intro Hc.
+    inversion Hc; subst.
+    inversion H5; subst.
+    simpl in H6.
+    assert ((update (update empty_state X 0) Y 1) X = 0) by reflexivity.
+    assert ((update (update empty_state X 0) Y 1) Y = 1) by reflexivity.
+    rewrite <- H6 in H0.
+    rewrite <- H6 in H1.
+    assert ((st' X) = 0) by apply H0.
+    assert ((st' X) = 1) by apply H1.
+    rewrite H3 in H4. inversion H4.
+  contradiction H0.
+    subst. apply H. apply E_Seq with (update empty_state X 0); apply E_Havoc.
+Qed. (* Googled *)
+
 (** [] *)
 
 (** The definition of program equivalence we are using here has some

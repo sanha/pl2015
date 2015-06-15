@@ -325,7 +325,7 @@ Qed.
 Example has_type_not : 
   ~ (|- tif tfalse tzero ttrue \in TBool).
 Proof.
-  intros Contra. solve by inversion 2.  Qed.
+  intros Contra. repeat solve by inversion 2.  Qed.
 
 (** **** Exercise: 1 star, optional (succ_hastype_nat__hastype_nat)  *)
 Example succ_hastype_nat__hastype_nat : forall t,

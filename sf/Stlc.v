@@ -387,8 +387,14 @@ where "'[' x ':=' s ']' t" := (subst x s t).
 Inductive substi (s:tm) (x:id) : tm -> tm -> Prop := 
   | s_var1 : 
       substi s x (tvar x) s
-  (* FILL IN HERE *)
-.
+  | s_var2 : forall y, y <> x -> substi s x (tvar y) (tvar y)
+  | s_tabs1 : forall T t, substi s x (tabs x T t) (tabs x T t)
+  | s_tabs2 : forall y T t t', y <> x -> substi s x t t' -> substi s x (tabs y T t) (tabs y T t')
+  | s_tapp : forall t1 t1' t2 t2', substi s x t1 t1' -> substi s x t2 t2' -> substi s x (tapp t1 t2) (tapp t1' t2')
+  | s_ttrue : substi s x ttrue ttrue
+  | s_tfalse : substi s x tfalse tfalse
+  | s_tif : forall t1 t1' t2 t2' t3 t3', substi s x t1 t1' -> substi s x t2 t2' -> 
+            substi s x t3 t3' -> substi s x (tif t1 t2 t3) (tif t1' t2' t3').
 
 Hint Constructors substi.
 

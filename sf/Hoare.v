@@ -935,6 +935,7 @@ Proof.
       split. assumption.
              apply bexp_eval_false. assumption. Qed.
 
+Check bexp_eval_true.
 
 (* ####################################################### *) 
 
@@ -1099,7 +1100,10 @@ Inductive ceval : com -> state -> state -> Prop :=
                   c1 / st || st' ->
                   (WHILE b1 DO c1 END) / st' || st'' ->
                   (WHILE b1 DO c1 END) / st || st''
-(* FILL IN HERE *)
+  | E_If1True : forall (st st': state) (b : bexp) (c: com),
+                beval st b = true -> c / st || st' -> (IF1 b THEN c FI) / st || st'
+  | E_If1False : forall (st: state) (b: bexp) (c: com),
+                 beval st b = false -> (IF1 b THEN c FI) / st || st
 
   where "c1 '/' st '||' st'" := (ceval c1 st st').
 
@@ -1108,7 +1112,7 @@ Tactic Notation "ceval_cases" tactic(first) ident(c) :=
   [ Case_aux c "E_Skip" | Case_aux c "E_Ass" | Case_aux c "E_Seq"
   | Case_aux c "E_IfTrue" | Case_aux c "E_IfFalse"
   | Case_aux c "E_WhileEnd" | Case_aux c "E_WhileLoop"
-  (* FILL IN HERE *)
+  | Case_aux c "E_If1True" | Case_aux c "E_If1False"
   ].
 
 (** Now we repeat (verbatim) the definition and notation of Hoare triples. *)
@@ -1143,6 +1147,19 @@ Notation "{{ P }}  c  {{ Q }}" := (hoare_triple P c Q)
     rules also. Because we're working in a separate module, you'll
     need to copy here the rules you find necessary. *)
 
+Lemma if1_sup: forall P Q b c,
+  {{ fun st => P st /\ bassn b st}} c {{ Q }} ->
+  {{ fun st => P st /\ ~ (bassn b st) }} SKIP {{ Q }} ->
+  {{ P }} (IF1 b THEN c FI) {{ Q }}.
+Proof.
+  intros. unfold hoare_triple. intros. inversion H1 ; subst.
+  - eapply H. eauto. eauto. 
+  - eapply H0. constructor. split.
+    + assumption.
+    + intros contra. unfold bassn in contra. rewrite H7 in contra.
+      solve by inversion.
+Qed.
+
 
 Lemma hoare_if1_good :
   {{ fun st => st X + st Y = st Z }}
@@ -1150,8 +1167,20 @@ Lemma hoare_if1_good :
     X ::= APlus (AId X) (AId Y)
   FI
   {{ fun st => st X = st Z }}.
-Proof. (* FILL IN HERE *) Admitted.
-
+Proof.
+  apply if1_sup.
+  - unfold hoare_triple. intros. inversion H0.
+    inversion H2. apply negb_true_iff in H4. 
+    apply beq_nat_false in H4. inversion H ; subst.
+    simpl. rewrite H1. compute. reflexivity.
+  - unfold hoare_triple. intros. inversion H0.
+    inversion H ; subst. destruct (st' Y) eqn: H3.
+    + omega.
+    + unfold not in H2. unfold bassn in H2. 
+      assert (beval st' (BNot (BEq (AId Y) (ANum 0))) = true). 
+      simpl. apply negb_true_iff. rewrite H3. simpl. reflexivity.
+      apply H2 in H4. inversion H4.
+Qed.
 End If1.
 (** [] *)
 
@@ -1535,13 +1564,15 @@ Notation "{{ P }}  c  {{ Q }}" := (hoare_triple P c Q)
     [havoc_pre] and prove that the resulting rule is correct. *)
 
 Definition havoc_pre (X : id) (Q : Assertion) : Assertion :=
-(* FILL IN HERE *) admit.
+  fun st => forall x, Q (update st X x). (* Googled *)
 
 Theorem hoare_havoc : forall (Q : Assertion) (X : id),
   {{ havoc_pre X Q }} HAVOC X {{ Q }}.
 Proof.
-  (* FILL IN HERE *) Admitted.
-
+  unfold hoare_triple. intros.
+  inversion H ; subst. unfold havoc_pre in H0.
+  apply H0.
+Qed.
 End Himp.
 (** [] *)
 

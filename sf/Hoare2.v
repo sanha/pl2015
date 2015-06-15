@@ -976,7 +976,17 @@ Theorem is_wp_example :
   is_wp (fun st => st Y <= 4)
     (X ::= APlus (AId Y) (ANum 1)) (fun st => st X <= 5).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  unfold is_wp. split.
+  - compute. intros. inversion H ; subst. simpl.
+    remember (st (Id 1)) as x. destruct x eqn: H1.
+    + simpl. compute. omega.
+    + simpl. compute. destruct n. omega. destruct n. omega.
+      destruct n. omega. destruct n. omega. inversion H0.
+      inversion H3. inversion H5. inversion H7. inversion H9.
+  - intros. unfold hoare_triple in H. intros st H1.
+    assert (update st X ((st Y) + 1 ) X <= 5). apply H with (st := st).
+    constructor. auto. auto. rewrite update_eq in H0. omega. 
+Qed.
 (** [] *)
 
 (** **** Exercise: 2 stars, advanced (hoare_asgn_weakest)  *)
@@ -986,7 +996,12 @@ Proof.
 Theorem hoare_asgn_weakest : forall Q X a,
   is_wp (Q [X |-> a]) (X ::= a) Q.
 Proof.
-(* FILL IN HERE *) Admitted.
+  intros. unfold is_wp. split.
+  - apply hoare_asgn.
+  - intros. intros st H0. unfold hoare_triple in H.
+    unfold assn_sub. apply H with (st := st).
+    constructor. reflexivity. assumption.
+Qed.
 (** [] *)
 
 (** **** Exercise: 2 stars, advanced, optional (hoare_havoc_weakest)  *)
