@@ -825,14 +825,20 @@ Proof.
 *)
 
 Definition swap_program : com :=
-  (* FILL IN HERE *) admit.
+   Z::= AId X;; X ::= AId Y;; Y::= AId Z. 
 
 Theorem swap_exercise :
   {{fun st => st X <= st Y}} 
   swap_program
   {{fun st => st Y <= st X}}.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  eapply hoare_seq. eapply hoare_seq. eapply hoare_asgn. eapply hoare_asgn.
+  eapply hoare_consequence_pre. eapply hoare_asgn.
+  intros st H. unfold assn_sub. simpl. remember (update (update st Z (st X)) X (update st Z (st X) Y) ) as st'.
+  assert (H0: st' Z = st X). rewrite Heqst'. unfold update. simpl. reflexivity. 
+  assert (H1: st' X = st Y). rewrite Heqst'. rewrite update_eq. unfold update. simpl. reflexivity. 
+  unfold update. simpl. rewrite H0. rewrite H1. assumption.
+  Qed. (* googled. *)
 (** [] *)
 
 (** **** Exercise: 3 stars (hoarestate1)  *)

@@ -12,6 +12,9 @@ Lemma type_is_unique: forall t G T T'
     (TYPED': G |- t \in T'),
   T = T'.
 Proof.
+  intros. 
+
+
   exact FILL_IN_HERE.
 Qed.
 

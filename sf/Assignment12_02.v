@@ -7,7 +7,9 @@ Corollary typable_empty__closed : forall t T,
     empty |- t \in T  ->
     closed t.
 Proof.
-  exact FILL_IN_HERE.
+  unfold closed. intros. intros contra. induction t ; 
+    try (apply free_in_context with (T:= T) (Gamma:= empty) in contra;
+    inversion contra; inversion H0; assumption).
 Qed.
 
 (*-- Check --*)
